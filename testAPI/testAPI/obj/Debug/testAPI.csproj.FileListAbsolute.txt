@@ -1,0 +1,10 @@
+D:\Informatique\CsharpProject\testAPI\testAPI\bin\Debug\testAPI.exe.config
+D:\Informatique\CsharpProject\testAPI\testAPI\bin\Debug\testAPI.exe
+D:\Informatique\CsharpProject\testAPI\testAPI\bin\Debug\testAPI.pdb
+D:\Informatique\CsharpProject\testAPI\testAPI\bin\Debug\Newtonsoft.Json.dll
+D:\Informatique\CsharpProject\testAPI\testAPI\bin\Debug\Newtonsoft.Json.xml
+D:\Informatique\CsharpProject\testAPI\testAPI\obj\Debug\testAPI.csprojAssemblyReference.cache
+D:\Informatique\CsharpProject\testAPI\testAPI\obj\Debug\testAPI.csproj.CoreCompileInputs.cache
+D:\Informatique\CsharpProject\testAPI\testAPI\obj\Debug\testAPI.csproj.CopyComplete
+D:\Informatique\CsharpProject\testAPI\testAPI\obj\Debug\testAPI.exe
+D:\Informatique\CsharpProject\testAPI\testAPI\obj\Debug\testAPI.pdb
