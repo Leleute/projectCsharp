@@ -44,6 +44,7 @@ namespace WpfApp1
 
         private void loadFromApi()
         {
+            if(Data != null) Data.Clear();
             string url = "https://covid19.mathdro.id/api/confirmed";
             Data = apiLoader(url);
             for (int i = 0; i < Data.Count; i++)
@@ -81,7 +82,7 @@ namespace WpfApp1
                 loadFromApi();
                 for (int i = 0; i < Data.Count; i++)
                 {
-                    for (int j = 0; j < 50; j++)
+                    for (int j = 0; j < Data.Count; j++)
                     {
                         if(Data[i].countryRegion == Data[j].countryRegion && Data[i].provinceState != Data[j].provinceState)
                         {
@@ -196,9 +197,6 @@ namespace WpfApp1
         public int recovered { get; set; }
         public int deaths { get; set; }
         public int active { get; set; }
-        //public int admin2{ get; set; }
-        //public int fips{ get; set; }
-        //public int combinedKey{ get; set; }
         public string iso2 { get; set; }
         public string iso3 { get; set; }
 
