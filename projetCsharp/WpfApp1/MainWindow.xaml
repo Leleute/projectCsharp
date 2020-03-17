@@ -25,16 +25,38 @@
                 <Button Click="button_handler" Margin="15 5 15 0" Grid.Column="2" Content="Guérit" Tag="guer"/>
                 <Button Click="button_handler" Margin="15 5 15 0" Grid.Column="3" Content="Actif" Tag="active"/>
             </Grid>
+            <TextBlock Text= "Parametre" 
+                Margin="30 0 0 0"
+                Padding="5"
+                />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="pays" Grid.Column="0" Grid.Row="0" Margin="15 0 0 0"
+                    />
+                <CheckBox Grid.Column="1" Grid.Row="0" Margin="5 0 0 0" x:Name="cbCountry" Checked="HandleCheck" Tag="coun"    
+                    />
+                <TextBlock Text="region" Grid.Column="0" Grid.Row="1" Margin="15 0 0 0"
+                    />
+                <CheckBox Grid.Column="1" Grid.Row="1" Margin="5 0 0 0" x:Name="cbRegion" Checked="HandleCheck" Tag="reg"
+                    />
+               
+            </Grid>
+
             <DataGrid
-                Margin="10 10 10 10"
-                x:Name="CoronavirusInformation">
-
-
+                    Margin="10 10 10 10"
+                    x:Name="CoronavirusInformation">
 
                 <DataGrid.Columns>
-                   
-                    <DataGridTextColumn x:Name="country" Width="*" Header="Country/Region" Binding="{Binding Path=countryRegion}" />
-                    <DataGridTextColumn x:Name="province" Width="*" Header="provinceState" Binding="{Binding Path=provinceState}" />
+
+                    <DataGridTextColumn x:Name="country" Width="*" Header="Country" Binding="{Binding Path=countryRegion}" />
+                    <DataGridTextColumn x:Name="province" Width="*" Header="Regin / State" Binding="{Binding Path=provinceState}" />
                     <DataGridTextColumn x:Name="lastU" Width="*" Header="lastUpdate" Binding="{Binding Path=lastUpdate}" />
                     <DataGridTextColumn x:Name="lat" Width="*" Header="lat" Binding="{Binding Path=lat}" />
                     <DataGridTextColumn x:Name="lon" Width="*" Header="lon" Binding="{Binding Path=lon}" />
@@ -46,6 +68,7 @@
                 </DataGrid.Columns>
 
             </DataGrid>
+            <Label x:Name="label1" Content="Label"/>
         </StackPanel>
     </Border>
 </Window>

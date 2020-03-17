@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Linq;
 using System.Net;
 using System.IO;
@@ -29,8 +30,26 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
+            loadFromApi();
+            country.Visibility = Visibility.Collapsed;
+            province.Visibility = Visibility.Collapsed;
+            confirmed.Visibility = Visibility.Collapsed;
+            recovered.Visibility = Visibility.Collapsed;
+            death.Visibility = Visibility.Collapsed;
+            active.Visibility = Visibility.Collapsed;
+            lastU.Visibility = Visibility.Collapsed;
+            lat.Visibility = Visibility.Collapsed;
+            lon.Visibility = Visibility.Collapsed;
+        }
+
+        private void loadFromApi()
+        {
             string url = "https://covid19.mathdro.id/api/confirmed";
             Data = apiLoader(url);
+            for (int i = 0; i < Data.Count; i++)
+            {
+                if (Data[i].provinceState == null) Data[i].provinceState = Data[i].countryRegion;
+            }
         }
 
         private List<Coronavirus> apiLoader(string url)
@@ -51,6 +70,44 @@ namespace WpfApp1
             return JsonConvert.DeserializeObject<List<Coronavirus>>(result);
         }
 
+        private void HandleCheck(object sender, RoutedEventArgs e)
+        {
+            CoronavirusInformation.Items.Clear();
+            if ((sender as CheckBox).Tag.ToString() == "coun")
+            {
+                cbRegion.IsChecked = false;                            
+                country.Visibility = Visibility.Visible;
+                province.Visibility = Visibility.Collapsed;
+                loadFromApi();
+                for (int i = 0; i < Data.Count; i++)
+                {
+                    for (int j = 0; j < 50; j++)
+                    {
+                        if(Data[i].countryRegion == Data[j].countryRegion && Data[i].provinceState != Data[j].provinceState)
+                        {
+
+                            Data[i].confirmed += Data[j].confirmed;
+                            Data[i].deaths += Data[j].deaths;
+                            Data[i].active += Data[j].active;
+                            Data[i].recovered += Data[j].recovered;
+                            Data.RemoveAt(j);
+                            j--;    
+                        }
+                    }
+                }
+            }
+
+            if ((sender as CheckBox).Tag.ToString() == "reg")
+            {
+                loadFromApi();
+                CoronavirusInformation.Items.Clear();
+                cbCountry.IsChecked = false;
+                country.Visibility = Visibility.Collapsed;
+                province.Visibility = Visibility.Visible;
+               
+            }
+        }
+
         private void button_handler(object sender, EventArgs e)
         {
             CoronavirusInformation.Items.Clear();
@@ -66,11 +123,6 @@ namespace WpfApp1
                     i++;
                     if (i >= 50) break;
                     CoronavirusInformation.Items.Add(value);
-                    province.Visibility = Visibility.Visible;
-                    country.Visibility = Visibility.Visible;
-                    lastU.Visibility = Visibility.Collapsed;
-                    lat.Visibility = Visibility.Collapsed;
-                    lon.Visibility = Visibility.Collapsed;
                     confirmed.Visibility = Visibility.Visible;
                     recovered.Visibility = Visibility.Collapsed;
                     death.Visibility = Visibility.Collapsed;
@@ -89,11 +141,6 @@ namespace WpfApp1
                     i++;
                     if (i >= 50) break;
                     CoronavirusInformation.Items.Add(value);
-                    province.Visibility = Visibility.Visible;
-                    country.Visibility = Visibility.Visible;
-                    lastU.Visibility = Visibility.Collapsed;
-                    lat.Visibility = Visibility.Collapsed;
-                    lon.Visibility = Visibility.Collapsed;
                     confirmed.Visibility = Visibility.Collapsed;
                     recovered.Visibility = Visibility.Collapsed;
                     death.Visibility = Visibility.Visible;
@@ -111,11 +158,6 @@ namespace WpfApp1
                     i++;
                     if (i >= 50) break;
                     CoronavirusInformation.Items.Add(value);
-                    province.Visibility = Visibility.Visible;
-                    country.Visibility = Visibility.Visible;
-                    lastU.Visibility = Visibility.Collapsed;
-                    lat.Visibility = Visibility.Collapsed;
-                    lon.Visibility = Visibility.Collapsed;
                     confirmed.Visibility = Visibility.Collapsed;
                     recovered.Visibility = Visibility.Visible;
                     death.Visibility = Visibility.Collapsed;
@@ -133,11 +175,6 @@ namespace WpfApp1
                     i++;
                     if (i >= 50) break;
                     CoronavirusInformation.Items.Add(value);
-                    province.Visibility = Visibility.Visible;
-                    country.Visibility = Visibility.Visible;
-                    lastU.Visibility = Visibility.Collapsed;
-                    lat.Visibility = Visibility.Collapsed;
-                    lon.Visibility = Visibility.Collapsed;
                     confirmed.Visibility = Visibility.Collapsed;
                     recovered.Visibility = Visibility.Collapsed;
                     death.Visibility = Visibility.Collapsed;
@@ -149,6 +186,7 @@ namespace WpfApp1
 
     public class Coronavirus
     {
+        
         public string provinceState { get; set; }
         public string countryRegion { get; set; }
         public float lastUpdate { get; set; }
@@ -168,6 +206,7 @@ namespace WpfApp1
             {
             }
        }
+
 }
 
 
