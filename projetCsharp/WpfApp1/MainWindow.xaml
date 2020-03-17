@@ -1,0 +1,50 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Border Padding="10">
+        <StackPanel>
+            <TextBlock Text= "Coronavirus API"
+                     FontWeight="Bold"
+                     Margin="30 0 0 0"
+                       Padding="5"
+                     />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Click="button_handler" Margin="15 5 15 0" Grid.Column="0" Content="Contaminé" Tag="cont"/>
+                <Button Click="button_handler" Margin="15 5 15 0" Grid.Column="1" Content="Mort" Tag="mort"/>
+                <Button Click="button_handler" Margin="15 5 15 0" Grid.Column="2" Content="Guérit" Tag="guer"/>
+                <Button Click="button_handler" Margin="15 5 15 0" Grid.Column="3" Content="Actif" Tag="active"/>
+            </Grid>
+            <DataGrid
+                x:Name="CoronavirusInformation">
+
+
+
+                <DataGrid.Columns>
+                   
+                    <DataGridTextColumn x:Name="country" Width="*" Header="Country/Region" Binding="{Binding Path=countryRegion}" />
+                    <DataGridTextColumn x:Name="province" Width="*" Header="provinceState" Binding="{Binding Path=provinceState}" />
+                    <DataGridTextColumn x:Name="lastU" Width="*" Header="lastUpdate" Binding="{Binding Path=lastUpdate}" />
+                    <DataGridTextColumn x:Name="lat" Width="*" Header="lat" Binding="{Binding Path=lat}" />
+                    <DataGridTextColumn x:Name="lon" Width="*" Header="lon" Binding="{Binding Path=lon}" />
+                    <DataGridTextColumn x:Name="confirmed" Width="*" Header="confirmed" Binding="{Binding Path=confirmed}" />
+                    <DataGridTextColumn x:Name="recovered" Width="*" Header="recovered" Binding="{Binding Path=recovered}" />
+                    <DataGridTextColumn x:Name="death" Width="*" Header="death" Binding="{Binding Path=deaths}" />
+                    <DataGridTextColumn x:Name="active" Width="*" Header="active" Binding="{Binding Path=active}" />
+
+                </DataGrid.Columns>
+
+            </DataGrid>
+        </StackPanel>
+    </Border>
+</Window>

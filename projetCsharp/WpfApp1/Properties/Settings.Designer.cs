@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace projectCsharp.Properties
+namespace WpfApp1.Properties
 {
 
 
