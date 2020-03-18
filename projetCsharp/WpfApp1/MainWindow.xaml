@@ -23,33 +23,39 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <TextBlock Text= "Coronavirus API"
                      FontWeight="Bold"
                      Margin="30 0 0 0"
                      Padding="5"
-                           Grid.Row="0"
-                           
+                     Grid.Row="0"                         
                      />
-                <Button Click="button_handler" Margin="15 5 15 0" Grid.Column="0" Content="Contaminé" Tag="cont" Grid.Row="1"/>
-                <Button Click="button_handler" Margin="15 5 15 0" Grid.Column="1" Content="Mort" Tag="mort" Grid.Row="1"/>
-                <Button Click="button_handler" Margin="15 5 15 0" Grid.Column="2" Content="Guérit" Tag="guer" Grid.Row="1"/>
-                <Button Click="button_handler" Margin="15 5 15 0" Grid.Column="3" Content="Actif" Tag="active" Grid.Row="1"/>
+                <Button x:Name="ButCont" Background="White" Click="button_choice" Margin="15 5 15 0" Grid.Column="0" Content="Contaminé" Tag="cont" Grid.Row="1"/>
+                <Button x:Name="ButMort" Background="White" Click="button_choice" Margin="15 5 15 0" Grid.Column="1" Content="Mort" Tag="mort" Grid.Row="1"/>
+                <Button x:Name="ButGuer" Background="White" Click="button_choice" Margin="15 5 15 0" Grid.Column="2" Content="Guérit" Tag="guer" Grid.Row="1"/>
+                <Button x:Name="ButAct"  Background="White" Click="button_choice" Margin="15 5 15 0" Grid.Column="3" Content="Actif" Tag="active" Grid.Row="1"/>
                 
                 <TextBlock Text= "Parametre" 
                 Margin="30 0 0 0"
                 Padding="5"
                  Grid.Row="2"
                 />
-                <TextBlock Text="pays"  Grid.Row="3" Margin="30 0 0 0"
+                <TextBlock Grid.Column="0" Text="pays"  Grid.Row="3" Margin="30 0 0 0"
                     />
-                <CheckBox Grid.Row="3" Margin="5 0 0 0" x:Name="cbCountry" Checked="HandleCheck" Tag="coun"    
+                <CheckBox Grid.Column="0" Grid.Row="3" Margin="5 0 0 0" x:Name="cbCountry" Checked="HandleCheck" Tag="coun"    
                     />
-                <TextBlock Text="region"  Grid.Row="4" Margin="30 0 0 0"
+                <TextBlock Grid.Column="0" Text="region"  Grid.Row="4" Margin="30 0 0 0"
                     />
-                <CheckBox  Grid.Row="4" Margin="5 0 0 0" x:Name="cbRegion" Checked="HandleCheck" Tag="reg"
+                <CheckBox  Grid.Column="0" Grid.Row="4" Margin="5 0 0 0" x:Name="cbRegion" Checked="HandleCheck" Tag="reg"
                     />
-                <ScrollViewer Grid.Row="5" Padding="11"
+                <TextBox  x:Name="recherche" Grid.Column="1" Grid.Row="4" Margin="5 0 0 0"
+                    />
+                <TextBlock Grid.Column="1" Text="Recherche Specifique"  Grid.Row="3" Margin="5 0 0 0"
+                    />
+                <Button Click="button_handler" Margin="5 0 0 0" Grid.Column="3" Content="Chercher" Tag="cont" Grid.Row="5"/>
+
+                <ScrollViewer Grid.Row="6" Padding="11"
                      VerticalScrollBarVisibility="Visible"
                               Grid.ColumnSpan="4"
                      >
@@ -60,7 +66,7 @@
                     Grid.ColumnSpan="4">
                         <DataGrid.Columns>
                             <DataGridTextColumn x:Name="country" Width="*" Header="Country" Binding="{Binding Path=countryRegion}" />
-                            <DataGridTextColumn x:Name="province" Width="*" Header="Regin / State" Binding="{Binding Path=provinceState}" />
+                            <DataGridTextColumn x:Name="province" Width="*" Header="Region / State" Binding="{Binding Path=provinceState}" />
                             <DataGridTextColumn x:Name="lastU" Width="*" Header="lastUpdate" Binding="{Binding Path=lastUpdate}" />
                             <DataGridTextColumn x:Name="lat" Width="*" Header="lat" Binding="{Binding Path=lat}" />
                             <DataGridTextColumn x:Name="lon" Width="*" Header="lon" Binding="{Binding Path=lon}" />

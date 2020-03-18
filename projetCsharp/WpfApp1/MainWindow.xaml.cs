@@ -28,6 +28,8 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
+        int mode = 0;
+        int lieu = 0; 
         List<Coronavirus> Data;
         public MainWindow()
         {
@@ -42,6 +44,7 @@ namespace WpfApp1
             lastU.Visibility = Visibility.Collapsed;
             lat.Visibility = Visibility.Collapsed;
             lon.Visibility = Visibility.Collapsed;
+            CoronavirusInformation.Visibility = Visibility.Collapsed;
         }
 
         private void loadFromApi()
@@ -53,6 +56,8 @@ namespace WpfApp1
             {
                 if (Data[i].provinceState == null) Data[i].provinceState = Data[i].countryRegion;
             }
+           
+
         }
 
         private List<Coronavirus> apiLoader(string url)
@@ -75,12 +80,10 @@ namespace WpfApp1
 
         private void HandleCheck(object sender, RoutedEventArgs e)
         {
-            CoronavirusInformation.Items.Clear();
             if ((sender as System.Windows.Controls.CheckBox).Tag.ToString() == "coun")
             {
-                cbRegion.IsChecked = false;                            
-                country.Visibility = Visibility.Visible;
-                province.Visibility = Visibility.Collapsed;
+                cbRegion.IsChecked = false;
+                lieu = 1;
                 loadFromApi();
                 for (int i = 0; i < Data.Count; i++)
                 {
@@ -102,18 +105,87 @@ namespace WpfApp1
             if ((sender as System.Windows.Controls.CheckBox).Tag.ToString() == "reg")
             {
                 loadFromApi();
-                CoronavirusInformation.Items.Clear();
                 cbCountry.IsChecked = false;
-                country.Visibility = Visibility.Collapsed;
-                province.Visibility = Visibility.Visible;          
+                lieu = 2;
+                         
             }
         }
 
+        private void button_choice(object sender, EventArgs e)
+        {
+            if ((sender as System.Windows.Controls.Button).Tag.ToString() == "cont")
+            {
+                mode = 1;
+                ButCont.Background = new SolidColorBrush(Colors.Green);
+                ButMort.Background = new SolidColorBrush(Colors.White);
+                ButGuer.Background = new SolidColorBrush(Colors.White);
+                ButAct.Background = new SolidColorBrush(Colors.White);
+
+            }
+            if ((sender as System.Windows.Controls.Button).Tag.ToString() == "mort")
+            {
+                mode = 2;
+                ButCont.Background = new SolidColorBrush(Colors.White);
+                ButMort.Background = new SolidColorBrush(Colors.Green);
+                ButGuer.Background = new SolidColorBrush(Colors.White);
+                ButAct.Background = new SolidColorBrush(Colors.White);
+            }
+            if ((sender as System.Windows.Controls.Button).Tag.ToString() == "guer")
+            {
+                mode = 3;
+                ButCont.Background = new SolidColorBrush(Colors.White);
+                ButMort.Background = new SolidColorBrush(Colors.White);
+                ButGuer.Background = new SolidColorBrush(Colors.Green);
+                ButAct.Background = new SolidColorBrush(Colors.White);
+            }
+            if ((sender as System.Windows.Controls.Button).Tag.ToString() == "active")
+            {
+                mode = 4;
+                ButCont.Background = new SolidColorBrush(Colors.White);
+                ButMort.Background = new SolidColorBrush(Colors.White);
+                ButGuer.Background = new SolidColorBrush(Colors.White);
+                ButAct.Background = new SolidColorBrush(Colors.Green); ;
+            }
+        }
+
+        private void ChangeDataBase()
+        {
+            if(recherche.Text != null)
+            {
+                for(int i = 0; i< Data.Count; i++)
+                {
+                    if(lieu == 1 && Data[i].countryRegion.Contains(recherche.Text) == false)
+                    {
+                        Data.RemoveAt(i);
+                        i--;
+                    }
+                    if(lieu == 2 && Data[i].provinceState.Contains(recherche.Text) == false)
+                    {
+                        Data.RemoveAt(i);
+                        i--;
+                    }
+                }
+            }
+        }
+
+
         private void button_handler(object sender, EventArgs e)
         {
+            ChangeDataBase();
+            if(lieu == 1)
+            {
+                country.Visibility = Visibility.Visible;
+                province.Visibility = Visibility.Collapsed;
+            }
+            if(lieu == 2)
+            {
+                country.Visibility = Visibility.Collapsed;
+                province.Visibility = Visibility.Visible;
+            }
+            CoronavirusInformation.Visibility = Visibility.Visible;
             CoronavirusInformation.Items.Clear();
             int i = 0;
-            if ((sender as System.Windows.Controls.Button).Tag.ToString() == "cont")
+            if (mode == 1)
             {
 
                  var test = from Coronavirus in Data
@@ -131,8 +203,7 @@ namespace WpfApp1
                 }
                 i = 0;
             }
-
-            if ((sender as System.Windows.Controls.Button).Tag.ToString() == "mort")
+            if (mode == 2)
             {
                 var test = from Coronavirus in Data
                            orderby Coronavirus.deaths descending
@@ -149,7 +220,7 @@ namespace WpfApp1
                 }
                 i = 0;
             }
-            if ((sender as System.Windows.Controls.Button).Tag.ToString() == "guer")
+            if (mode == 3)
             {
                 var test = from Coronavirus in Data
                            orderby Coronavirus.recovered descending
@@ -166,7 +237,7 @@ namespace WpfApp1
                 }
                 i = 0;
             }
-            if ((sender as System.Windows.Controls.Button).Tag.ToString() == "active")
+            if (mode == 4)
             {
                 var test = from Coronavirus in Data
                            orderby Coronavirus.active descending
@@ -182,12 +253,15 @@ namespace WpfApp1
                     active.Visibility = Visibility.Visible;
                 }
             }
-        }
+            ButCont.Background = new SolidColorBrush(Colors.White);
+            ButMort.Background = new SolidColorBrush(Colors.White);
+            ButGuer.Background = new SolidColorBrush(Colors.White);
+            ButAct.Background = new SolidColorBrush(Colors.White);
+        }       
     }
 
     public class Coronavirus
     {
-        
         public string provinceState { get; set; }
         public string countryRegion { get; set; }
         public float lastUpdate { get; set; }
@@ -199,7 +273,6 @@ namespace WpfApp1
         public int active { get; set; }
         public string iso2 { get; set; }
         public string iso3 { get; set; }
-
         public Coronavirus()
             {
             }
