@@ -51,7 +51,8 @@
                     />
                 <ScrollViewer Grid.Row="5" Padding="11"
                      VerticalScrollBarVisibility="Visible"
-                     Grid.ColumnSpan="4">
+                              Grid.ColumnSpan="4"
+                     >
                     <DataGrid
                     Grid.Row="6"
                     Margin="10 10 10 10"
