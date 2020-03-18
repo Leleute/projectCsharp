@@ -8,67 +8,69 @@
         Title="MainWindow" Height="450" Width="800">
     <Border Padding="10">
         <StackPanel>
-            <TextBlock Text= "Coronavirus API"
-                     FontWeight="Bold"
-                     Margin="30 0 0 0"
-                       Padding="5"
-                     />
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Button Click="button_handler" Margin="15 5 15 0" Grid.Column="0" Content="Contaminé" Tag="cont"/>
-                <Button Click="button_handler" Margin="15 5 15 0" Grid.Column="1" Content="Mort" Tag="mort"/>
-                <Button Click="button_handler" Margin="15 5 15 0" Grid.Column="2" Content="Guérit" Tag="guer"/>
-                <Button Click="button_handler" Margin="15 5 15 0" Grid.Column="3" Content="Actif" Tag="active"/>
-            </Grid>
-            <TextBlock Text= "Parametre" 
-                Margin="30 0 0 0"
-                Padding="5"
-                />
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="pays" Grid.Column="0" Grid.Row="0" Margin="15 0 0 0"
+                <TextBlock Text= "Coronavirus API"
+                     FontWeight="Bold"
+                     Margin="30 0 0 0"
+                     Padding="5"
+                           Grid.Row="0"
+                           
+                     />
+                <Button Click="button_handler" Margin="15 5 15 0" Grid.Column="0" Content="Contaminé" Tag="cont" Grid.Row="1"/>
+                <Button Click="button_handler" Margin="15 5 15 0" Grid.Column="1" Content="Mort" Tag="mort" Grid.Row="1"/>
+                <Button Click="button_handler" Margin="15 5 15 0" Grid.Column="2" Content="Guérit" Tag="guer" Grid.Row="1"/>
+                <Button Click="button_handler" Margin="15 5 15 0" Grid.Column="3" Content="Actif" Tag="active" Grid.Row="1"/>
+                
+                <TextBlock Text= "Parametre" 
+                Margin="30 0 0 0"
+                Padding="5"
+                 Grid.Row="2"
+                />
+                <TextBlock Text="pays"  Grid.Row="3" Margin="30 0 0 0"
                     />
-                <CheckBox Grid.Column="1" Grid.Row="0" Margin="5 0 0 0" x:Name="cbCountry" Checked="HandleCheck" Tag="coun"    
+                <CheckBox Grid.Row="3" Margin="5 0 0 0" x:Name="cbCountry" Checked="HandleCheck" Tag="coun"    
                     />
-                <TextBlock Text="region" Grid.Column="0" Grid.Row="1" Margin="15 0 0 0"
+                <TextBlock Text="region"  Grid.Row="4" Margin="30 0 0 0"
                     />
-                <CheckBox Grid.Column="1" Grid.Row="1" Margin="5 0 0 0" x:Name="cbRegion" Checked="HandleCheck" Tag="reg"
+                <CheckBox  Grid.Row="4" Margin="5 0 0 0" x:Name="cbRegion" Checked="HandleCheck" Tag="reg"
                     />
-               
-            </Grid>
-
-            <DataGrid
+                <ScrollViewer Grid.Row="5" Padding="11"
+                     VerticalScrollBarVisibility="Visible"
+                     Grid.ColumnSpan="4">
+                    <DataGrid
+                    Grid.Row="6"
                     Margin="10 10 10 10"
-                    x:Name="CoronavirusInformation">
-
-                <DataGrid.Columns>
-
-                    <DataGridTextColumn x:Name="country" Width="*" Header="Country" Binding="{Binding Path=countryRegion}" />
-                    <DataGridTextColumn x:Name="province" Width="*" Header="Regin / State" Binding="{Binding Path=provinceState}" />
-                    <DataGridTextColumn x:Name="lastU" Width="*" Header="lastUpdate" Binding="{Binding Path=lastUpdate}" />
-                    <DataGridTextColumn x:Name="lat" Width="*" Header="lat" Binding="{Binding Path=lat}" />
-                    <DataGridTextColumn x:Name="lon" Width="*" Header="lon" Binding="{Binding Path=lon}" />
-                    <DataGridTextColumn x:Name="confirmed" Width="*" Header="confirmed" Binding="{Binding Path=confirmed}" />
-                    <DataGridTextColumn x:Name="recovered" Width="*" Header="recovered" Binding="{Binding Path=recovered}" />
-                    <DataGridTextColumn x:Name="death" Width="*" Header="death" Binding="{Binding Path=deaths}" />
-                    <DataGridTextColumn x:Name="active" Width="*" Header="active" Binding="{Binding Path=active}" />
-
-                </DataGrid.Columns>
-
-            </DataGrid>
-            <Label x:Name="label1" Content="Label"/>
+                    x:Name="CoronavirusInformation"
+                    Grid.ColumnSpan="4">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="country" Width="*" Header="Country" Binding="{Binding Path=countryRegion}" />
+                            <DataGridTextColumn x:Name="province" Width="*" Header="Regin / State" Binding="{Binding Path=provinceState}" />
+                            <DataGridTextColumn x:Name="lastU" Width="*" Header="lastUpdate" Binding="{Binding Path=lastUpdate}" />
+                            <DataGridTextColumn x:Name="lat" Width="*" Header="lat" Binding="{Binding Path=lat}" />
+                            <DataGridTextColumn x:Name="lon" Width="*" Header="lon" Binding="{Binding Path=lon}" />
+                            <DataGridTextColumn x:Name="confirmed" Width="*" Header="confirmed" Binding="{Binding Path=confirmed}" />
+                            <DataGridTextColumn x:Name="recovered" Width="*" Header="recovered" Binding="{Binding Path=recovered}" />
+                            <DataGridTextColumn x:Name="death" Width="*" Header="death" Binding="{Binding Path=deaths}" />
+                            <DataGridTextColumn x:Name="active" Width="*" Header="active" Binding="{Binding Path=active}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
+            </Grid>
         </StackPanel>
     </Border>
 </Window>

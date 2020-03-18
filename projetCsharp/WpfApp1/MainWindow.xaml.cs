@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Forms;
+using System.Drawing;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Linq;
@@ -74,7 +76,7 @@ namespace WpfApp1
         private void HandleCheck(object sender, RoutedEventArgs e)
         {
             CoronavirusInformation.Items.Clear();
-            if ((sender as CheckBox).Tag.ToString() == "coun")
+            if ((sender as System.Windows.Controls.CheckBox).Tag.ToString() == "coun")
             {
                 cbRegion.IsChecked = false;                            
                 country.Visibility = Visibility.Visible;
@@ -97,15 +99,13 @@ namespace WpfApp1
                     }
                 }
             }
-
-            if ((sender as CheckBox).Tag.ToString() == "reg")
+            if ((sender as System.Windows.Controls.CheckBox).Tag.ToString() == "reg")
             {
                 loadFromApi();
                 CoronavirusInformation.Items.Clear();
                 cbCountry.IsChecked = false;
                 country.Visibility = Visibility.Collapsed;
-                province.Visibility = Visibility.Visible;
-               
+                province.Visibility = Visibility.Visible;          
             }
         }
 
@@ -113,7 +113,7 @@ namespace WpfApp1
         {
             CoronavirusInformation.Items.Clear();
             int i = 0;
-            if ((sender as Button).Tag.ToString() == "cont")
+            if ((sender as System.Windows.Controls.Button).Tag.ToString() == "cont")
             {
 
                  var test = from Coronavirus in Data
@@ -132,7 +132,7 @@ namespace WpfApp1
                 i = 0;
             }
 
-            if ((sender as Button).Tag.ToString() == "mort")
+            if ((sender as System.Windows.Controls.Button).Tag.ToString() == "mort")
             {
                 var test = from Coronavirus in Data
                            orderby Coronavirus.deaths descending
@@ -149,7 +149,7 @@ namespace WpfApp1
                 }
                 i = 0;
             }
-            if ((sender as Button).Tag.ToString() == "guer")
+            if ((sender as System.Windows.Controls.Button).Tag.ToString() == "guer")
             {
                 var test = from Coronavirus in Data
                            orderby Coronavirus.recovered descending
@@ -166,7 +166,7 @@ namespace WpfApp1
                 }
                 i = 0;
             }
-            if ((sender as Button).Tag.ToString() == "active")
+            if ((sender as System.Windows.Controls.Button).Tag.ToString() == "active")
             {
                 var test = from Coronavirus in Data
                            orderby Coronavirus.active descending
