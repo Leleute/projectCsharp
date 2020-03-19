@@ -53,13 +53,10 @@
                     />
                 <TextBlock Grid.Column="1" Text="Recherche Specifique"  Grid.Row="3" Margin="5 0 0 0"
                     />
-                <Button Click="button_handler" Margin="5 0 0 0" Grid.Column="3" Content="Chercher" Tag="cont" Grid.Row="5"/>
-
-                <ScrollViewer Grid.Row="6" Padding="11"
-                     VerticalScrollBarVisibility="Visible"
-                              Grid.ColumnSpan="4"
-                     >
-                    <DataGrid
+                <Button x:Name="bValid" Click="button_handler" Margin="5 0 0 0" Grid.Column="3" Content="Chercher" Tag="cont" Grid.Row="5"/>
+                <DataGrid
+                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                    ScrollViewer.CanContentScroll="True"
                     Grid.Row="6"
                     Margin="10 10 10 10"
                     x:Name="CoronavirusInformation"
@@ -76,7 +73,6 @@
                             <DataGridTextColumn x:Name="active" Width="*" Header="active" Binding="{Binding Path=active}" />
                         </DataGrid.Columns>
                     </DataGrid>
-                </ScrollViewer>
             </Grid>
         </StackPanel>
     </Border>

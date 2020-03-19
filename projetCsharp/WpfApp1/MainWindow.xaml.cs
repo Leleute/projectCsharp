@@ -45,6 +45,8 @@ namespace WpfApp1
             lat.Visibility = Visibility.Collapsed;
             lon.Visibility = Visibility.Collapsed;
             CoronavirusInformation.Visibility = Visibility.Collapsed;
+
+            bValid.IsEnabled = false;
         }
 
         private void loadFromApi()
@@ -73,7 +75,6 @@ namespace WpfApp1
                 StreamReader sr = new StreamReader(stream);
                 result = sr.ReadToEnd();
                 sr.Close();
-                ;
             }
             return JsonConvert.DeserializeObject<List<Coronavirus>>(result);
         }
@@ -91,7 +92,6 @@ namespace WpfApp1
                     {
                         if(Data[i].countryRegion == Data[j].countryRegion && Data[i].provinceState != Data[j].provinceState)
                         {
-
                             Data[i].confirmed += Data[j].confirmed;
                             Data[i].deaths += Data[j].deaths;
                             Data[i].active += Data[j].active;
@@ -109,6 +109,7 @@ namespace WpfApp1
                 lieu = 2;
                          
             }
+            if(mode != 0) bValid.IsEnabled = true;
         }
 
         private void button_choice(object sender, EventArgs e)
@@ -146,6 +147,7 @@ namespace WpfApp1
                 ButGuer.Background = new SolidColorBrush(Colors.White);
                 ButAct.Background = new SolidColorBrush(Colors.Green); ;
             }
+            if (lieu != 0) bValid.IsEnabled = true;
         }
 
         private void ChangeDataBase()
@@ -194,7 +196,6 @@ namespace WpfApp1
                 foreach (Coronavirus value in test)
                 {
                     i++;
-                    if (i >= 50) break;
                     CoronavirusInformation.Items.Add(value);
                     confirmed.Visibility = Visibility.Visible;
                     recovered.Visibility = Visibility.Collapsed;
@@ -211,7 +212,6 @@ namespace WpfApp1
                 foreach (Coronavirus value in test)
                 {
                     i++;
-                    if (i >= 50) break;
                     CoronavirusInformation.Items.Add(value);
                     confirmed.Visibility = Visibility.Collapsed;
                     recovered.Visibility = Visibility.Collapsed;
@@ -228,7 +228,6 @@ namespace WpfApp1
                 foreach(Coronavirus value in test)
                 {
                     i++;
-                    if (i >= 50) break;
                     CoronavirusInformation.Items.Add(value);
                     confirmed.Visibility = Visibility.Collapsed;
                     recovered.Visibility = Visibility.Visible;
@@ -245,7 +244,6 @@ namespace WpfApp1
                 foreach (Coronavirus value in test)
                 {
                     i++;
-                    if (i >= 50) break;
                     CoronavirusInformation.Items.Add(value);
                     confirmed.Visibility = Visibility.Collapsed;
                     recovered.Visibility = Visibility.Collapsed;
@@ -253,11 +251,17 @@ namespace WpfApp1
                     active.Visibility = Visibility.Visible;
                 }
             }
+            mode = 0;
+            lieu = 0;
             ButCont.Background = new SolidColorBrush(Colors.White);
             ButMort.Background = new SolidColorBrush(Colors.White);
             ButGuer.Background = new SolidColorBrush(Colors.White);
             ButAct.Background = new SolidColorBrush(Colors.White);
-        }       
+            cbCountry.IsChecked = false;
+            cbRegion.IsChecked = false;
+            bValid.IsEnabled = false;
+        }     
+        
     }
 
     public class Coronavirus
