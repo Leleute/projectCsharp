@@ -4,76 +4,80 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Border Padding="10">
+        Title="MainWindow" Height="450" Width="800"
+        mc:Ignorable="d">
+
+    <Border Padding="20">
         <StackPanel>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <TextBlock Text= "Coronavirus API"
+            <TextBlock Text= "Coronavirus API"
                      FontWeight="Bold"
+                     TextAlignment="Center"
                      Margin="30 0 0 0"
                      Padding="5"
-                     Grid.Row="0"                         
+                     Grid.Row="0" 
+                     Grid.ColumnSpan="4"
+                       FontSize="40"
                      />
-                <Button x:Name="ButCont" Background="White" Click="button_choice" Margin="15 5 15 0" Grid.Column="0" Content="Contaminé" Tag="cont" Grid.Row="1"/>
-                <Button x:Name="ButMort" Background="White" Click="button_choice" Margin="15 5 15 0" Grid.Column="1" Content="Mort" Tag="mort" Grid.Row="1"/>
-                <Button x:Name="ButGuer" Background="White" Click="button_choice" Margin="15 5 15 0" Grid.Column="2" Content="Guérit" Tag="guer" Grid.Row="1"/>
-                <Button x:Name="ButAct"  Background="White" Click="button_choice" Margin="15 5 15 0" Grid.Column="3" Content="Actif" Tag="active" Grid.Row="1"/>
-                
-                <TextBlock Text= "Parametre" 
+            <Border BorderBrush="Black" BorderThickness="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text= "Paramètres :" 
                 Margin="30 0 0 0"
                 Padding="5"
-                 Grid.Row="2"
-                />
-                <TextBlock Grid.Column="0" Text="pays"  Grid.Row="3" Margin="30 0 0 0"
+                Grid.Row="1"
+                Foreground="Black"
+                FontSize="20"
                     />
-                <CheckBox Grid.Column="0" Grid.Row="3" Margin="5 0 0 0" x:Name="cbCountry" Checked="HandleCheck" Tag="coun"    
-                    />
-                <TextBlock Grid.Column="0" Text="region"  Grid.Row="4" Margin="30 0 0 0"
-                    />
-                <CheckBox  Grid.Column="0" Grid.Row="4" Margin="5 0 0 0" x:Name="cbRegion" Checked="HandleCheck" Tag="reg"
-                    />
-                <TextBox  x:Name="recherche" Grid.Column="1" Grid.Row="4" Margin="5 0 0 0"
-                    />
-                <TextBlock Grid.Column="1" Text="Recherche Specifique"  Grid.Row="3" Margin="5 0 0 0"
-                    />
-                <Button x:Name="bValid" Click="button_handler" Margin="5 0 0 0" Grid.Column="3" Content="Chercher" Tag="cont" Grid.Row="5"/>
-                <DataGrid
-                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                    
+                    <CheckBox x:Name="ButCont" Checked="verifButton" Background="White" Margin="15 5 15 20" Grid.Column="0"  Grid.Row="2">Contaminé</CheckBox>
+                    <CheckBox x:Name="ButMort" Checked="verifButton" Background="White" Margin="15 5 15 20" Grid.Column="1" Grid.Row="2">Morts</CheckBox>
+                    <CheckBox x:Name="ButGuer" Checked="verifButton" Background="White" Margin="15 5 15 20" Grid.Column="2" Grid.Row="2">Gueris</CheckBox>
+                    <CheckBox x:Name="ButAct" Checked="verifButton" Background="White" Margin="15 5 15 20" Grid.Column="3" Grid.Row="2">Actifs</CheckBox>
+
+                    <RadioButton Grid.Column="0" Grid.Row="3" Margin="5 0 0 0"  IsChecked="True" x:Name="rbCountry">Country</RadioButton>
+                    <RadioButton  Grid.Column="0" Grid.Row="4" Margin="5 0 0 0" x:Name="rbRegion">Region</RadioButton>
+                    
+                    <TextBox  x:Name="recherche" Grid.Column="1" Grid.Row="4" Margin="30 5 30 5"   />
+                    <TextBlock Grid.Column="1" Text="Recherche Specifique"  Grid.Row="3" Margin="30 5 30 5"   />
+                    <TextBox  x:Name="nbMax" Grid.Column="2" Grid.Row="4" Margin="30 5 30 5"  Text="50"  PreviewTextInput="NumberValidation" TextChanged="verifButton"/>
+                    <TextBlock Grid.Column="2" Text="Nombre Maximum"  Grid.Row="3" Margin="30 5 30 5"  />
+                    <Button x:Name="bValid"  Margin="15 0 15 30"  Grid.Column="3" Content="Chercher" Tag="cont" Grid.Row="5" Click="button_handler" IsEnabled="False"/>
+
+            <DataGrid
+                    ScrollViewer.VerticalScrollBarVisibility="Visible"
                     ScrollViewer.CanContentScroll="True"
                     Grid.Row="6"
-                    Margin="10 10 10 10"
+                    Margin="10 10 10 0"
                     x:Name="CoronavirusInformation"
-                    Grid.ColumnSpan="4">
+                    AutoGenerateColumns="False"
+                    Grid.ColumnSpan="4"
+                    IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn x:Name="country" Width="*" Header="Country" Binding="{Binding Path=countryRegion}" />
+                            <DataGridTextColumn  x:Name="country" Width="*" Header="Country" Binding="{Binding Path=countryRegion}"/>
                             <DataGridTextColumn x:Name="province" Width="*" Header="Region / State" Binding="{Binding Path=provinceState}" />
-                            <DataGridTextColumn x:Name="lastU" Width="*" Header="lastUpdate" Binding="{Binding Path=lastUpdate}" />
-                            <DataGridTextColumn x:Name="lat" Width="*" Header="lat" Binding="{Binding Path=lat}" />
-                            <DataGridTextColumn x:Name="lon" Width="*" Header="lon" Binding="{Binding Path=lon}" />
                             <DataGridTextColumn x:Name="confirmed" Width="*" Header="confirmed" Binding="{Binding Path=confirmed}" />
-                            <DataGridTextColumn x:Name="recovered" Width="*" Header="recovered" Binding="{Binding Path=recovered}" />
                             <DataGridTextColumn x:Name="death" Width="*" Header="death" Binding="{Binding Path=deaths}" />
+                            <DataGridTextColumn x:Name="recovered" Width="*" Header="recovered" Binding="{Binding Path=recovered}" />
                             <DataGridTextColumn x:Name="active" Width="*" Header="active" Binding="{Binding Path=active}" />
                         </DataGrid.Columns>
                     </DataGrid>
-            </Grid>
+                </Grid>
+            </Border>
         </StackPanel>
     </Border>
 </Window>
