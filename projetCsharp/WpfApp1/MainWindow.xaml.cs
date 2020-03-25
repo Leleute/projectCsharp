@@ -8,7 +8,6 @@ using WpfApp1.ViewModel;
 
 namespace WpfApp1
 {
-
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -92,15 +91,13 @@ namespace WpfApp1
             death.Visibility = Visibility.Collapsed;
             active.Visibility = Visibility.Collapsed;
             CoronavirusInformation.Visibility = Visibility.Collapsed;
-
         }
 
         public void verifButton(object sender, RoutedEventArgs e)
         {   if(String.IsNullOrWhiteSpace(nbMax.Text) == true)
             {
                 nbMax.Text = "0";
-            }
-        
+            }       
             if((ButCont.IsChecked == true || ButMort.IsChecked == true || ButGuer.IsChecked == true || ButAct.IsChecked == true ))
             {
                 bValid.IsEnabled = true;

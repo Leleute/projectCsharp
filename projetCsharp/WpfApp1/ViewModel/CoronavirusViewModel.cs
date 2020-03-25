@@ -29,6 +29,7 @@ namespace WpfApp1.ViewModel
                 result = sr.ReadToEnd();
                 sr.Close();
             }
+
             List<Coronavirus> Data = JsonConvert.DeserializeObject<List<Coronavirus>>(result);
             for (int i = 0; i < Data.Count; i++)
             {
@@ -42,37 +43,48 @@ namespace WpfApp1.ViewModel
             int i = 0;
             List<Coronavirus> Data = new List<Coronavirus>();
             List<Coronavirus> DataFromApi = apiLoader();
+
             if (region == false)
             {
                 for (int j = 0; j < DataFromApi.Count; j++)
                 {
                     for (int k = 0; k < DataFromApi.Count; k++)
                     {
-                        if (DataFromApi[j].countryRegion == DataFromApi[k].countryRegion && DataFromApi[j].provinceState != DataFromApi[k].provinceState)
+                        if (DataFromApi[j].countryRegion == DataFromApi[k].countryRegion)
                         {
-                            DataFromApi[j].confirmed += DataFromApi[k].confirmed;
-                            DataFromApi[j].deaths += DataFromApi[k].deaths;
-                            DataFromApi[j].active += DataFromApi[k].active;
-                            DataFromApi[j].recovered += DataFromApi[k].recovered;
-                            DataFromApi.RemoveAt(k);
-                            k--;
+                            if(DataFromApi[j].admin2 != DataFromApi[k].admin2 && DataFromApi[j].provinceState == DataFromApi[k].provinceState)
+                            {
+                                DataFromApi.RemoveAt(k);
+                                k--;
+                            }
+
+                            else if (DataFromApi[j].provinceState != DataFromApi[k].provinceState)
+                            {
+                                DataFromApi[j].confirmed += DataFromApi[k].confirmed;
+                                DataFromApi[j].deaths += DataFromApi[k].deaths;
+                                DataFromApi[j].active += DataFromApi[k].active;
+                                DataFromApi[j].recovered += DataFromApi[k].recovered;
+                                DataFromApi.RemoveAt(k);
+                                k--;
+                            }                            
                         }
                     }
-                }            
+                }
             }
+
             if (stringContenu != null)
             {
                 for (int j = 0; j < DataFromApi.Count; j++)
                 {
                     if( (DataFromApi[j].provinceState.Contains(stringContenu) == false && region == true) || (DataFromApi[j].countryRegion.Contains(stringContenu) == false && region == false))
                     {
-                        Console.WriteLine(DataFromApi[j].countryRegion.Contains(stringContenu) + " " + region);
                         DataFromApi.RemoveAt(j);
                         j--;
                     }                   
                 }
             }
-            if(choixtri == "confirmed")
+
+            if (choixtri == "confirmed")
             {
                 var test = from Coronavirus in DataFromApi
                            orderby Coronavirus.confirmed descending

@@ -1,4 +1,6 @@
-﻿namespace WpfApp1.Model
+﻿using Newtonsoft.Json;
+
+namespace WpfApp1.Model
 {
 
     using System;
@@ -20,6 +22,8 @@
         public int recovered { get; set; }
         public int deaths { get; set; }
         public int active { get; set; }
+        public string admin2 { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string iso2 { get; set; }
         public string iso3 { get; set; }
         public Coronavirus()
