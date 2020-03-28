@@ -82,6 +82,7 @@ namespace WpfApp1.ViewModel
                         j--;
                     }                   
                 }
+                // 
             }
 
             if (choixtri == "confirmed")
