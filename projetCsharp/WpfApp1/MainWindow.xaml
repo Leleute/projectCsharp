@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WpfApp1"
         xmlns:vm="clr-namespace:WpfApp1.ViewModel"
         xmlns:m="clr-namespace:WpfApp1.Model"
-        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:syncfusion="clr-namespace:Syncfusion.UI.Xaml.Charts;assembly=Syncfusion.SfChart.WPF"
         xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
         Title="MainWindow" WindowStyle="None" ResizeMode="NoResize"  
         WindowStartupLocation="CenterScreen" WindowState="Maximized"
@@ -62,7 +62,15 @@
         <Border.Background>
             <ImageBrush ImageSource="pack://application:,,,/Images/bg.jpg"  Stretch="Fill"/>
         </Border.Background>
-        <StackPanel>
+        <StackPanel Margin="0,0,0,-92" RenderTransformOrigin="0.5,0.5">
+            <StackPanel.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="0.548"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="2.99"/>
+                </TransformGroup>
+            </StackPanel.RenderTransform>
             <Image gif:AnimationBehavior.SourceUri="pack://application:,,,/Images/bg.gif"></Image>
             <DockPanel HorizontalAlignment="Center" VerticalAlignment="Top">
                 <Image DockPanel.Dock="Left" Source="/Images/api.png" Width="50" Height="50"/>
@@ -72,22 +80,22 @@
             </DockPanel>
             <DockPanel HorizontalAlignment="Center" VerticalAlignment="Top" >
                 <Border Padding="0 0 0 15" DockPanel.Dock="Right" Margin="10" Background="Azure" Width="200" BorderThickness="1,1,1,1" CornerRadius="30,30,30,30">
-                        <Border.BorderBrush>
-                            <SolidColorBrush Color="Black" Opacity="0.1"/>
-                        </Border.BorderBrush>
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Border.BorderBrush>
+                        <SolidColorBrush Color="Black" Opacity="0.1"/>
+                    </Border.BorderBrush>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
                         <TextBlock Text="Options d'affichage" Foreground="Black" FontSize="20" FontWeight="Black" Margin="10 10 10 10" FontFamily="{StaticResource Text}"/>
                         <Button Cursor="Hand" Style="{StaticResource ButtonStyleNoHighlighting}" BorderBrush="Transparent" Margin="0 0 0 10" BorderThickness="0" Width="60" Height="60">
-                                <Button.Background>
-                                    <ImageBrush ImageSource="/Images/table.png" Stretch="Fill" />
-                                </Button.Background>
-                            </Button>
-                            <Button Cursor="Hand" Style="{StaticResource ButtonStyleNoHighlighting}" BorderBrush="Transparent" BorderThickness="0" Height="60" Width="60">
-                                <Button.Background>
-                                    <ImageBrush ImageSource="/Images/graph.png" Stretch="Fill" />
-                                </Button.Background>
-                            </Button>
-                        </StackPanel>
+                            <Button.Background>
+                                <ImageBrush ImageSource="/Images/table.png" Stretch="Fill" />
+                            </Button.Background>
+                        </Button>
+                        <Button Cursor="Hand" Style="{StaticResource ButtonStyleNoHighlighting}" BorderBrush="Transparent" BorderThickness="0" Height="60" Width="60">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/Images/graph.png" Stretch="Fill" />
+                            </Button.Background>
+                        </Button>
+                    </StackPanel>
                 </Border>
                 <Border DockPanel.Dock="Left" Margin="10" Background="Azure" BorderThickness="1,1,1,1" CornerRadius="30,30,30,30" Width="1000">
                     <StackPanel Orientation="Vertical" Width="Auto" Height="Auto" Margin="20 20 20 20">
@@ -98,15 +106,47 @@
                     </StackPanel>
                 </Border>
             </DockPanel>
-                            
+            <Border Margin="10" Background="Azure" BorderThickness="1,1,1,1" CornerRadius="30,30,30,30" Width="1000">
+                <Grid>
+
+                    <syncfusion:SfChart Header="Chart" Height="300" Width="500">
+                        <!--Initialize the horizontal axis for SfChart-->
+                        <syncfusion:SfChart.PrimaryAxis>
+                            <syncfusion:CategoryAxis Header="Name" FontSize="14"/>
+                        </syncfusion:SfChart.PrimaryAxis>
+
+                        <!--Initialize the vertical axis for SfChart-->
+                        <syncfusion:SfChart.SecondaryAxis>
+                            <syncfusion:NumericalAxis Header="Height(in cm)" FontSize="14"/>
+                        </syncfusion:SfChart.SecondaryAxis>
+
+                        <!--Adding Legend to the SfChart-->
+                        <syncfusion:SfChart.Legend>
+                            <syncfusion:ChartLegend/>
+                        </syncfusion:SfChart.Legend>
+
+                        <!--Initialize the series for SfChart-->
+                        <syncfusion:ColumnSeries Label="Heights" ItemsSource="{Binding Data}" XBindingPath="Name" YBindingPath="Height" ShowTooltip="True" >
+                            <syncfusion:ColumnSeries.AdornmentsInfo>
+                                <syncfusion:ChartAdornmentInfo ShowLabel="True" >
+                                </syncfusion:ChartAdornmentInfo>
+                            </syncfusion:ColumnSeries.AdornmentsInfo>
+                        </syncfusion:ColumnSeries>
+
+                    </syncfusion:SfChart>
+
+                </Grid>
+            </Border>
+
+
             <DockPanel Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20 20 20 20">
                 <DockPanel>
                     <Border Margin="20" DockPanel.Dock="Bottom" Background="Azure" BorderThickness="1,1,1,1" CornerRadius="30,30,30,30">
-                       <DockPanel>
+                        <DockPanel>
                             <DockPanel.Resources>
                                 <FrameworkElement 
                                     x:Key="ProxyElement"
-                                    DataContext="{Binding}"/>       
+                                    DataContext="{Binding}"/>
                                 <m:Coronavirus x:Key="coronavirus"/>
                             </DockPanel.Resources>
                             <TextBlock  DockPanel.Dock="Top"
@@ -119,12 +159,12 @@
                                         FontSize="20" />
                             <Grid>
 
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
@@ -166,7 +206,7 @@
                                         ScrollViewer.CanContentScroll="True"
                                         ItemsSource="{Binding CoronavirusData}"                   
                                         AutoGenerateColumns="False"                       
-                                        IsReadOnly="True">                                        
+                                        IsReadOnly="True">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn HeaderTemplate="{StaticResource CountryTemplate}" Visibility="{Binding DataContext.VisibilityCountry, Source={StaticResource ProxyElement}}" Width="*" Binding="{Binding Path=countryRegion}"/>
                                             <DataGridTextColumn HeaderTemplate="{StaticResource StateTemplate}" Visibility="{Binding DataContext.VisibilityRegion, Source={StaticResource ProxyElement}}" Width="*" Binding="{Binding Path=provinceState}" />
@@ -174,19 +214,19 @@
                                             <DataGridTextColumn HeaderTemplate="{StaticResource DeathsTeamplate}" Visibility="{Binding DataContext.VisibilityDeath, Source={StaticResource ProxyElement}}" Width="*" Binding="{Binding Path=deaths}" />
                                             <DataGridTextColumn HeaderTemplate="{StaticResource RecoveredTemplate}" Visibility="{Binding DataContext.VisibilityRecov, Source={StaticResource ProxyElement}}" Width="*" Binding="{Binding Path=recovered}" />
                                             <DataGridTextColumn HeaderTemplate="{StaticResource ActiveTemplate}" Visibility="{Binding DataContext.VisibilityActive, Source={StaticResource ProxyElement}}" Width="*" Binding="{Binding Path=active}" />
-                                        </DataGrid.Columns>                                       
-                                      
+                                        </DataGrid.Columns>
+
                                     </DataGrid>
                                 </ScrollViewer>
-                            </Grid>                           
+                            </Grid>
                         </DockPanel>
                     </Border>
                 </DockPanel>
             </DockPanel>
-           
+
 
         </StackPanel>
-        
+
     </Border>
 
     <!--<Border Padding="20">

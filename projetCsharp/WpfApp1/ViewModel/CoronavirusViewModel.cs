@@ -14,6 +14,7 @@ namespace WpfApp1.ViewModel
     class CoronavirusViewModel : INotifyPropertyChanged
     {
         public ValidationChoix validChoix { get; set; }
+        public List<Person> Data { get; set; }
 
         private Visibility _visibilityGrid;
         public Visibility VisibilityGrid
@@ -260,6 +261,14 @@ namespace WpfApp1.ViewModel
             Rbregion = true;
             VisibilityConf = Visibility.Collapsed;
             CoronavirusData = new List<Coronavirus>();
+
+            Data = new List<Person>()
+            {
+                new Person { Name = "David", Height = 180 },
+                new Person { Name = "Michael", Height = 170 },
+                new Person { Name = "Steve", Height = 160 },
+                new Person { Name = "Joel", Height = 182 }
+            };
         }
 
         public void VerifTextNotEmpty()
@@ -457,6 +466,10 @@ namespace WpfApp1.ViewModel
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+
+
+
 
     }
 }
