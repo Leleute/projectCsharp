@@ -237,7 +237,7 @@ namespace WpfApp1.ViewModel
             }
         }
 
-        public ValidationChoix validationChoix { get; set; }
+        public ValidationChoix ValidationChoix { get; set; }
 
         private List<Coronavirus> _coronavirusData;
         public List<Coronavirus> CoronavirusData
@@ -257,14 +257,13 @@ namespace WpfApp1.ViewModel
                 
         }
 
-
         public CoronavirusViewModel()
         {
-            this.validationChoix = new ValidationChoix(this);
+            this.ValidationChoix = new ValidationChoix(this);
             NbMax = "50";
             Rbregion = true;
             VisibilityConf = Visibility.Collapsed;
-            CoronavirusData = new List<Coronavirus>();
+            CoronavirusData = new List<Coronavirus>();         
         }
 
         public void VerifTextNotEmpty()
@@ -350,7 +349,7 @@ namespace WpfApp1.ViewModel
             }
         }
 
-        public void useButton()
+        public void UseButton()
         {
             int i = 0;
             List<Coronavirus> Data = new List<Coronavirus>();
@@ -450,9 +449,10 @@ namespace WpfApp1.ViewModel
             CoronavirusData = Data;
 
         }
+       
 
         public event PropertyChangedEventHandler PropertyChanged;
-
+        
         private void RaisePropertyChanged(string propertyName)
         {
             PropertyChangedEventHandler handler = PropertyChanged;

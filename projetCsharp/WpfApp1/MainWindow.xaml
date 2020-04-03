@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         xmlns:vm="clr-namespace:WpfApp1.ViewModel"
+        xmlns:m="clr-namespace:WpfApp1.Model"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         Title="MainWindow" Height="450" Width="800"
         mc:Ignorable="d">
     <Window.DataContext>
@@ -12,20 +14,22 @@
     </Window.DataContext>
 
     <Border Padding="20">
-
         <StackPanel>
             <StackPanel.Resources>
-                <FrameworkElement x:Key="ProxyElement"
-                         DataContext="{Binding}"/>
+                <FrameworkElement 
+                    x:Key="ProxyElement"
+                    DataContext="{Binding}"/>
+                <m:Coronavirus x:Key="coronavirus"/>
             </StackPanel.Resources>
+            <lvc:CartesianChart Series="{Binding testGraph}" />
             <TextBlock Text= "Coronavirus API"
-                     FontWeight="Bold"
-                     TextAlignment="Center"
-                     Margin="30 0 0 0"
-                     Padding="5"
-                     Grid.Row="0" 
-                     Grid.ColumnSpan="4"
-                       FontSize="40"
+                        FontWeight="Bold"
+                        TextAlignment="Center"
+                        Margin="30 0 0 0"
+                        Padding="5"
+                        Grid.Row="0" 
+                        Grid.ColumnSpan="4"
+                        FontSize="40"
                      />
             <Border BorderBrush="Black" BorderThickness="2">
                 <Grid>
@@ -45,13 +49,13 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text= "Paramètres :" 
-                Margin="30 0 0 0"
-                Padding="5"
-                Grid.Row="1"
-                Foreground="Black"
-                FontSize="20"
-                    />
+                    <TextBlock  
+                        Text= "Paramètres :"                               
+                        Margin="30 0 0 0"      
+                        Padding="5"       
+                        Grid.Row="1"              
+                        Foreground="Black"         
+                        FontSize="20" />
 
                     <CheckBox IsChecked="{Binding CbCont}" Background="White" Margin="15 5 15 20" Grid.Column="0"  Grid.Row="2">Contaminé</CheckBox>
                     <CheckBox IsChecked="{Binding CbMort}" Background="White" Margin="15 5 15 20" Grid.Column="1" Grid.Row="2">Morts</CheckBox>
@@ -65,27 +69,30 @@
                     <TextBlock Grid.Column="1" Text="Recherche Specifique"  Grid.Row="3" Margin="30 5 30 5"   />
                     <TextBox Text="{Binding NbMax}" Grid.Column="2" Grid.Row="4" Margin="30 5 30 5" PreviewTextInput="NumberValidation"/>
                     <TextBlock Grid.Column="2" Text="Nombre Maximum"  Grid.Row="3" Margin="30 5 30 5"  />
-                    <Button Margin="15 0 15 30"  Grid.Column="3" Content="Chercher" Grid.Row="5" Command="{Binding validationChoix}"/>
-                    <ContentControl Visibility="Collapsed"
-                Content="{StaticResource ProxyElement}"/>
-                    <DataGrid
+                    
+                    <Button Margin="15 0 15 30"  Grid.Column="3" Content="Chercher" Grid.Row="5" Command="{Binding ValidationChoix}"/>
+                    
+                    <ContentControl 
+                        Visibility="Collapsed"                                  
+                        Content="{StaticResource ProxyElement}"/>
 
+                    <DataGrid
                         Visibility="{Binding VisibilityGrid}"
-                    ScrollViewer.VerticalScrollBarVisibility="Visible"
-                    ScrollViewer.CanContentScroll="True"
-                    ItemsSource="{Binding CoronavirusData}"
-                    Grid.Row="6"
-                    Margin="10 10 10 0"
-                    AutoGenerateColumns="False"
-                    Grid.ColumnSpan="4"
-                    IsReadOnly="True">
+                        ScrollViewer.VerticalScrollBarVisibility="Visible"
+                        ScrollViewer.CanContentScroll="True"
+                        ItemsSource="{Binding CoronavirusData}"
+                        Grid.Row="6"
+                        Margin="10 10 10 0"
+                        AutoGenerateColumns="False"
+                        Grid.ColumnSpan="4"
+                        IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Visibility="{Binding DataContext.VisibilityCountry, Source={StaticResource ProxyElement}}" x:Name="country" Width="*" Header="Country" Binding="{Binding Path=countryRegion}"/>
-                            <DataGridTextColumn Visibility="{Binding DataContext.VisibilityRegion, Source={StaticResource ProxyElement}}" x:Name="province" Width="*" Header="Region / State" Binding="{Binding Path=provinceState}" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.VisibilityConf, Source={StaticResource ProxyElement}}" x:Name="confirmed" Width="*" Header="confirmed" Binding="{Binding Path=confirmed}" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.VisibilityDeath, Source={StaticResource ProxyElement}}" x:Name="death" Width="*" Header="death" Binding="{Binding Path=deaths}" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.VisibilityRecov, Source={StaticResource ProxyElement}}" x:Name="recovered" Width="*" Header="recovered" Binding="{Binding Path=recovered}" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.VisibilityActive, Source={StaticResource ProxyElement}}" x:Name="active" Width="*" Header="active" Binding="{Binding Path=active}" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.VisibilityCountry, Source={StaticResource ProxyElement}}" Width="*" Header="Country" Binding="{Binding Path=countryRegion}"/>
+                            <DataGridTextColumn Visibility="{Binding DataContext.VisibilityRegion, Source={StaticResource ProxyElement}}" Width="*" Header="Region / State" Binding="{Binding Path=provinceState}" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.VisibilityConf, Source={StaticResource ProxyElement}}" Width="*" Header="confirmed" Binding="{Binding Path=confirmed}" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.VisibilityDeath, Source={StaticResource ProxyElement}}" Width="*" Header="death" Binding="{Binding Path=deaths}" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.VisibilityRecov, Source={StaticResource ProxyElement}}" Width="*" Header="recovered" Binding="{Binding Path=recovered}" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.VisibilityActive, Source={StaticResource ProxyElement}}" Width="*" Header="active" Binding="{Binding Path=active}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
