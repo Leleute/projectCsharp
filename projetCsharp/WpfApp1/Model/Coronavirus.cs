@@ -2,15 +2,6 @@
 
 namespace WpfApp1.Model
 {
-
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.ComponentModel;
-
-
     public class Coronavirus
     {
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -38,8 +29,8 @@ namespace WpfApp1.Model
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string iso3 { get; set; }
         public Coronavirus()
-            {
-            }
+        {
+        }
     }
 
 }

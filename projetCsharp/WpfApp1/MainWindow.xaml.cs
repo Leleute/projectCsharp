@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
-using System.Text.RegularExpressions;
-using WpfApp1.Model;
 using WpfApp1.ViewModel;
 
 namespace WpfApp1
@@ -23,4 +20,3 @@ namespace WpfApp1
         }
     }
 }
-          

@@ -7,13 +7,189 @@
         xmlns:vm="clr-namespace:WpfApp1.ViewModel"
         xmlns:m="clr-namespace:WpfApp1.Model"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-        Title="MainWindow" Height="450" Width="800"
+        xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
+        Title="MainWindow" WindowStyle="None" ResizeMode="NoResize"  
+        WindowStartupLocation="CenterScreen" WindowState="Maximized"
+        Height="{Binding SystemParameters.PrimaryScreenHeight}" 
+        Width="{Binding SystemParameters.PrimaryScreenWidth}"
         mc:Ignorable="d">
     <Window.DataContext>
         <vm:CoronavirusViewModel />
     </Window.DataContext>
 
-    <Border Padding="20">
+    <Window.Resources>
+        <DataTemplate x:Key="CountryTemplate">
+            <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image DockPanel.Dock="Left" Source="/Images/country.png" Width="50" Height="50"/>
+                <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" Margin="10">Country</TextBlock>
+            </DockPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="StateTemplate">
+            <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image DockPanel.Dock="Left" Source="/Images/state.png" Width="50" Height="50"/>
+                <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" Margin="10">Region/State</TextBlock>
+            </DockPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="ConfirmedTemplate">
+            <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image DockPanel.Dock="Left" Source="/Images/confirmed.png" Width="50" Height="50"/>
+                <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" Margin="10">Confirmed</TextBlock>
+            </DockPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="DeathsTeamplate">
+            <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image DockPanel.Dock="Left" Source="/Images/death.png" Width="50" Height="50"/>
+                <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" Margin="10">Deaths</TextBlock>
+            </DockPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="RecoveredTemplate">
+            <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image DockPanel.Dock="Left" Source="/Images/recovered.png" Width="50" Height="50"/>
+                <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" Margin="10">Recovered</TextBlock>
+            </DockPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="ActiveTemplate">
+            <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image DockPanel.Dock="Left" Source="/Images/active.png" Width="50" Height="50"/>
+                <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" Margin="10">Active</TextBlock>
+            </DockPanel>
+        </DataTemplate>
+
+
+    </Window.Resources>
+
+    <Border BorderThickness="1" CornerRadius="3.2" BorderBrush="White"  >
+        <Border.Background>
+            <ImageBrush ImageSource="pack://application:,,,/Images/bg.jpg"  Stretch="Fill"/>
+        </Border.Background>
+        <StackPanel>
+            <Image gif:AnimationBehavior.SourceUri="pack://application:,,,/Images/bg.gif"></Image>
+            <DockPanel HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Image DockPanel.Dock="Left" Source="/Images/api.png" Width="50" Height="50"/>
+                <Image DockPanel.Dock="Left" Margin="10 0 0 0" Source="/Images/virus.png" Width="50" Height="50"/>
+                <TextBlock Text="API Tool - COVID-19 Evolution" Margin="20" Foreground="White" FontSize="36"  FontFamily="{StaticResource Title}"/>
+                <Image DockPanel.Dock="Right" Source="/Images/virus_loop.png" Width="50" Height="50"/>
+            </DockPanel>
+            <DockPanel HorizontalAlignment="Center" VerticalAlignment="Top" >
+                <Border Padding="0 0 0 15" DockPanel.Dock="Right" Margin="10" Background="Azure" Width="200" BorderThickness="1,1,1,1" CornerRadius="30,30,30,30">
+                        <Border.BorderBrush>
+                            <SolidColorBrush Color="Black" Opacity="0.1"/>
+                        </Border.BorderBrush>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <TextBlock Text="Options d'affichage" Foreground="Black" FontSize="20" FontWeight="Black" Margin="10 10 10 10" FontFamily="{StaticResource Text}"/>
+                        <Button Cursor="Hand" Style="{StaticResource ButtonStyleNoHighlighting}" BorderBrush="Transparent" Margin="0 0 0 10" BorderThickness="0" Width="60" Height="60">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="/Images/table.png" Stretch="Fill" />
+                                </Button.Background>
+                            </Button>
+                            <Button Cursor="Hand" Style="{StaticResource ButtonStyleNoHighlighting}" BorderBrush="Transparent" BorderThickness="0" Height="60" Width="60">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="/Images/graph.png" Stretch="Fill" />
+                                </Button.Background>
+                            </Button>
+                        </StackPanel>
+                </Border>
+                <Border DockPanel.Dock="Left" Margin="10" Background="Azure" BorderThickness="1,1,1,1" CornerRadius="30,30,30,30" Width="1000">
+                    <StackPanel Orientation="Vertical" Width="Auto" Height="Auto" Margin="20 20 20 20">
+                        <Image DockPanel.Dock="Left" Margin="0 0 0 10" gif:AnimationBehavior.SourceUri="/Images/info.gif" Width="50" Height="50"/>
+                        <TextBlock Text="Cette application a pour but de représenter l'évolution du coronavirus depuis son apparition jusqu'à aujourd'hui." Foreground="Black" FontSize="20"  FontFamily="{StaticResource Text}"/>
+                        <TextBlock Text="Vous avez la possibilité de représenter les données de deux manières: sous la forme d'un tableau ou d'un graphique." Foreground="Black" FontSize="20"  FontFamily="{StaticResource Text}"/>
+                        <TextBlock Text="Deux règles s'appliquent en utilisant l'application: amusez-vous bien et surtout restez chez vous !" Foreground="Black" FontSize="20"  FontFamily="{StaticResource Text}"/>
+                    </StackPanel>
+                </Border>
+            </DockPanel>
+                            
+            <DockPanel Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20 20 20 20">
+                <DockPanel>
+                    <Border Margin="20" DockPanel.Dock="Bottom" Background="Azure" BorderThickness="1,1,1,1" CornerRadius="30,30,30,30">
+                       <DockPanel>
+                            <DockPanel.Resources>
+                                <FrameworkElement 
+                                    x:Key="ProxyElement"
+                                    DataContext="{Binding}"/>       
+                                <m:Coronavirus x:Key="coronavirus"/>
+                            </DockPanel.Resources>
+                            <TextBlock  DockPanel.Dock="Top"
+                                        HorizontalAlignment="Center"
+                                        FontFamily="{StaticResource Text}"
+                                        Text= "Parametres d'affichage"    
+                                        FontWeight="Black"
+                                        Padding="5"                  
+                                        Foreground="Black"         
+                                        FontSize="20" />
+                            <Grid>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <CheckBox IsChecked="{Binding CbCont}"  FontSize="14" FontFamily="{StaticResource Text}" Background="White" Margin="15 5 15 20" Grid.Column="0"  Grid.Row="2">Contaminé</CheckBox>
+                                <CheckBox IsChecked="{Binding CbMort}" FontSize="14" FontFamily="{StaticResource Text}" Background="White" Margin="15 5 15 20" Grid.Column="1" Grid.Row="2">Morts</CheckBox>
+                                <CheckBox IsChecked="{Binding CbGuer}" FontSize="14" FontFamily="{StaticResource Text}" Background="White" Margin="15 5 15 20" Grid.Column="2" Grid.Row="2">Gueris</CheckBox>
+                                <CheckBox IsChecked="{Binding CbActive}"  FontSize="14" FontFamily="{StaticResource Text}" Background="White" Margin="15 5 15 20" Grid.Column="3" Grid.Row="2">Actifs</CheckBox>
+
+                                <RadioButton FontSize="14" FontFamily="{StaticResource Text}" Grid.Column="0" Grid.Row="3" Margin="5 0 0 0">Country</RadioButton>
+                                <RadioButton FontSize="14" FontFamily="{StaticResource Text}" Grid.Column="0" Grid.Row="4" Margin="5 0 0 0" IsChecked="{Binding Rbregion}">Region</RadioButton>
+
+                                <TextBox FontSize="14" Text="{Binding RechercheSpe}" Grid.Column="1" Grid.Row="4" Margin="30 5 30 5"   />
+                                <TextBlock FontSize="14" FontFamily="{StaticResource Text}" Grid.Column="1" Text="Recherche Specifique:"  Grid.Row="3" Margin="30 5 30 5"   />
+                                <TextBox FontSize="14" Text="{Binding NbMax}" Grid.Column="2" Grid.Row="4" Margin="30 5 30 5" PreviewTextInput="NumberValidation"/>
+                                <TextBlock  FontSize="14" FontFamily="{StaticResource Text}" Grid.Column="2" Text="Nombre Maximum:  "  Grid.Row="3" Margin="30 5 30 5"  />
+
+                                <Button Cursor="Hand" Padding="10" FontSize="14" FontWeight="Black"  Margin="15 0 15 15" Content="Chercher" Grid.Column="3" Grid.Row="5" Command="{Binding ValidationChoix}"/>
+                                <ContentControl 
+                                        Visibility="Collapsed"                                  
+                                        Content="{StaticResource ProxyElement}"/>
+                                <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto"  Grid.ColumnSpan="4" Grid.Row="6" >
+                                    <DataGrid
+                                        Margin="10"
+                                        FontSize="16"
+                                        FontFamily="{StaticResource Text}"
+                                        Height="450" 
+                                        HorizontalAlignment="Stretch" 
+                                        VerticalAlignment="Stretch"                                    
+                                        Visibility="{Binding VisibilityGrid}"
+                                        ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                        ScrollViewer.CanContentScroll="True"
+                                        ItemsSource="{Binding CoronavirusData}"                   
+                                        AutoGenerateColumns="False"                       
+                                        IsReadOnly="True">                                        
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn HeaderTemplate="{StaticResource CountryTemplate}" Visibility="{Binding DataContext.VisibilityCountry, Source={StaticResource ProxyElement}}" Width="*" Binding="{Binding Path=countryRegion}"/>
+                                            <DataGridTextColumn HeaderTemplate="{StaticResource StateTemplate}" Visibility="{Binding DataContext.VisibilityRegion, Source={StaticResource ProxyElement}}" Width="*" Binding="{Binding Path=provinceState}" />
+                                            <DataGridTextColumn HeaderTemplate="{StaticResource ConfirmedTemplate}" Visibility="{Binding DataContext.VisibilityConf, Source={StaticResource ProxyElement}}" Width="*"  Binding="{Binding Path=confirmed}" />
+                                            <DataGridTextColumn HeaderTemplate="{StaticResource DeathsTeamplate}" Visibility="{Binding DataContext.VisibilityDeath, Source={StaticResource ProxyElement}}" Width="*" Binding="{Binding Path=deaths}" />
+                                            <DataGridTextColumn HeaderTemplate="{StaticResource RecoveredTemplate}" Visibility="{Binding DataContext.VisibilityRecov, Source={StaticResource ProxyElement}}" Width="*" Binding="{Binding Path=recovered}" />
+                                            <DataGridTextColumn HeaderTemplate="{StaticResource ActiveTemplate}" Visibility="{Binding DataContext.VisibilityActive, Source={StaticResource ProxyElement}}" Width="*" Binding="{Binding Path=active}" />
+                                        </DataGrid.Columns>                                       
+                                      
+                                    </DataGrid>
+                                </ScrollViewer>
+                            </Grid>                           
+                        </DockPanel>
+                    </Border>
+                </DockPanel>
+            </DockPanel>
+           
+
+        </StackPanel>
+        
+    </Border>
+
+    <!--<Border Padding="20">
         <StackPanel>
             <StackPanel.Resources>
                 <FrameworkElement 
@@ -98,5 +274,5 @@
                 </Grid>
             </Border>
         </StackPanel>
-    </Border>
+    </Border>-->
 </Window>

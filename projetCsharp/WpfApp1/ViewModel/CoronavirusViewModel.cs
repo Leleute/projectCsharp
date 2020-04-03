@@ -1,16 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Media;
-using Newtonsoft.Json;
-using System.Net;
-using System.IO;
-using System.Text.RegularExpressions;
-using WpfApp1.Model;
 using System.ComponentModel;
-using System.Windows.Controls;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Windows;
+using WpfApp1.Model;
 using WpfApp1.ViewModel.Commands;
 
 namespace WpfApp1.ViewModel
@@ -254,7 +250,7 @@ namespace WpfApp1.ViewModel
                     RaisePropertyChanged("CoronavirusData");
                 }
             }
-                
+
         }
 
         public CoronavirusViewModel()
@@ -263,12 +259,12 @@ namespace WpfApp1.ViewModel
             NbMax = "50";
             Rbregion = true;
             VisibilityConf = Visibility.Collapsed;
-            CoronavirusData = new List<Coronavirus>();         
+            CoronavirusData = new List<Coronavirus>();
         }
 
         public void VerifTextNotEmpty()
         {
-            if(NbMax == "" || NbMax == null)
+            if (NbMax == "" || NbMax == null)
             {
                 NbMax = "0";
             }
@@ -276,7 +272,7 @@ namespace WpfApp1.ViewModel
 
         public List<Coronavirus> apiLoader()
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12; 
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             string url = "https://covid19.mathdro.id/api/confirmed";
             string result = null;
             string urlApi = string.Format(url);
@@ -288,7 +284,7 @@ namespace WpfApp1.ViewModel
             wr.ProtocolVersion = HttpVersion.Version10;
             wr.AllowWriteStreamBuffering = false;
             HttpWebResponse responseOject = null;
-            responseOject = (HttpWebResponse)requestApi.GetResponse();         
+            responseOject = (HttpWebResponse)requestApi.GetResponse();
             using (Stream stream = responseOject.GetResponseStream())
             {
                 StreamReader sr = new StreamReader(stream);
@@ -363,7 +359,7 @@ namespace WpfApp1.ViewModel
                     {
                         if (DataFromApi[j].countryRegion == DataFromApi[k].countryRegion)
                         {
-                            if(DataFromApi[j].admin2 != DataFromApi[k].admin2 && DataFromApi[j].provinceState == DataFromApi[k].provinceState)
+                            if (DataFromApi[j].admin2 != DataFromApi[k].admin2 && DataFromApi[j].provinceState == DataFromApi[k].provinceState)
                             {
                                 DataFromApi.RemoveAt(k);
                                 k--;
@@ -377,7 +373,7 @@ namespace WpfApp1.ViewModel
                                 DataFromApi[j].recovered += DataFromApi[k].recovered;
                                 DataFromApi.RemoveAt(k);
                                 k--;
-                            }                            
+                            }
                         }
                     }
                 }
@@ -387,11 +383,11 @@ namespace WpfApp1.ViewModel
             {
                 for (int j = 0; j < DataFromApi.Count; j++)
                 {
-                    if( (DataFromApi[j].provinceState.Contains(RechercheSpe) == false && Rbregion == true) || (DataFromApi[j].countryRegion.Contains(RechercheSpe) == false && Rbregion == false))
+                    if ((DataFromApi[j].provinceState.Contains(RechercheSpe) == false && Rbregion == true) || (DataFromApi[j].countryRegion.Contains(RechercheSpe) == false && Rbregion == false))
                     {
                         DataFromApi.RemoveAt(j);
                         j--;
-                    }                   
+                    }
                 }
             }
 
@@ -407,7 +403,7 @@ namespace WpfApp1.ViewModel
                     if (++i >= int.Parse(NbMax)) break;
 
                 }
-                
+
             }
             else if (CbMort == true)
             {
@@ -449,10 +445,10 @@ namespace WpfApp1.ViewModel
             CoronavirusData = Data;
 
         }
-       
+
 
         public event PropertyChangedEventHandler PropertyChanged;
-        
+
         private void RaisePropertyChanged(string propertyName)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
