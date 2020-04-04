@@ -14,17 +14,17 @@ namespace WpfApp1.ViewModel
 {
     class CoronavirusViewModel : INotifyPropertyChanged
     {
-        private NumericalAxis _primaryAxis;
-        public NumericalAxis PrimaryAxis
+        private int _tailleGraph;
+        public int TailleGraph
         {
             get
             {
-                return _primaryAxis;
+                return _tailleGraph;
             }
             set
             {
-                _primaryAxis = value;
-                RaisePropertyChanged("PrimaryAxis");
+                _tailleGraph = value;
+                RaisePropertyChanged("TailleGraph");
             }
         }
 
@@ -297,6 +297,20 @@ namespace WpfApp1.ViewModel
 
         public ValidationChoix ValidationChoix { get; set; }
 
+        private string _axisXName;
+        public String AxisXName
+        {
+            get
+            {
+                return _axisXName;
+            }
+            set
+            {
+                _axisXName = value;
+                RaisePropertyChanged("AxisXName");
+            }
+        }
+
         private string _axisX;
         public String AxisX
         {
@@ -337,8 +351,6 @@ namespace WpfApp1.ViewModel
             VisibilityConf = Visibility.Collapsed;
             CoronavirusData = new List<Coronavirus>();
             NumericalAxis test = new NumericalAxis();
-            test.Header = "Test";
-            PrimaryAxis = test;
             RbGraph = true;
         }
 
@@ -352,6 +364,7 @@ namespace WpfApp1.ViewModel
 
         public List<Coronavirus> apiLoader()
         {
+            
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             string url = "https://covid19.mathdro.id/api/confirmed";
             string result = null;
@@ -382,7 +395,6 @@ namespace WpfApp1.ViewModel
         public void checkVisibility()
         {
             NumericalAxis test = new NumericalAxis();
-            PrimaryAxis = test;
             if (RbGraph == true)
             {
                 VisibilityGrid = Visibility.Visible;
@@ -444,9 +456,11 @@ namespace WpfApp1.ViewModel
             List<Coronavirus> Data = new List<Coronavirus>();
             List<Coronavirus> DataFromApi = apiLoader();
             checkVisibility();
+            TailleGraph = 200 * int.Parse(NbMax);
             if (Rbregion == false)
             {
                 AxisX = "countryRegion";
+                AxisXName = "Pays";
                 for (int j = 0; j < DataFromApi.Count; j++)
                 {
                     for (int k = 0; k < DataFromApi.Count; k++)
@@ -472,7 +486,11 @@ namespace WpfApp1.ViewModel
                     }
                 }
             }
-            else AxisX = "provinceState";
+            else
+            {
+                AxisXName = "Etat / Region";
+                AxisX = "provinceState";
+            }
 
             if (RechercheSpe != null)
             {
@@ -556,6 +574,5 @@ namespace WpfApp1.ViewModel
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
     }
 }

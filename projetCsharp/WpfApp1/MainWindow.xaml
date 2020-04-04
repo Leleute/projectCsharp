@@ -21,37 +21,37 @@
         <DataTemplate x:Key="CountryTemplate">
             <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Image DockPanel.Dock="Left" Source="/Images/country.png" Width="50" Height="50"/>
-                <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" Margin="10">Country</TextBlock>
+                <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" Margin="10">Pays</TextBlock>
             </DockPanel>
         </DataTemplate>
         <DataTemplate x:Key="StateTemplate">
             <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Image DockPanel.Dock="Left" Source="/Images/state.png" Width="50" Height="50"/>
-                <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" Margin="10">Region/State</TextBlock>
+                <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" Margin="10">Etat / Region</TextBlock>
             </DockPanel>
         </DataTemplate>
         <DataTemplate x:Key="ConfirmedTemplate">
             <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Image DockPanel.Dock="Left" Source="/Images/confirmed.png" Width="50" Height="50"/>
-                <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" Margin="10">Confirmed</TextBlock>
+                <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" Margin="10">Confirmés</TextBlock>
             </DockPanel>
         </DataTemplate>
         <DataTemplate x:Key="DeathsTeamplate">
             <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Image DockPanel.Dock="Left" Source="/Images/death.png" Width="50" Height="50"/>
-                <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" Margin="10">Deaths</TextBlock>
+                <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" Margin="10">Morts</TextBlock>
             </DockPanel>
         </DataTemplate>
         <DataTemplate x:Key="RecoveredTemplate">
             <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Image DockPanel.Dock="Left" Source="/Images/recovered.png" Width="50" Height="50"/>
-                <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" Margin="10">Recovered</TextBlock>
+                <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" Margin="10">Guéris</TextBlock>
             </DockPanel>
         </DataTemplate>
         <DataTemplate x:Key="ActiveTemplate">
             <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Image DockPanel.Dock="Left" Source="/Images/active.png" Width="50" Height="50"/>
-                <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" Margin="10">Active</TextBlock>
+                <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" Margin="10">Actifs</TextBlock>
             </DockPanel>
         </DataTemplate>
 
@@ -114,7 +114,7 @@
                 <Border DockPanel.Dock="Left" Margin="10" Background="Azure" BorderThickness="1,1,1,1" CornerRadius="30,30,30,30">
                     <StackPanel Orientation="Vertical" Width="Auto" Height="Auto" Margin="20">
                         <Image DockPanel.Dock="Left" Margin="0 0 0 10" gif:AnimationBehavior.SourceUri="/Images/info.gif" Width="50" Height="50"/>
-                        <TextBlock Text="Cette application a pour but de représenter l'état d'avancement du coronavirus depuis son apparition jusqu'à aujourd'hui." Foreground="Black" FontSize="20"  FontFamily="{StaticResource Text}"/>
+                        <TextBlock Text="Cette application a pour but de représenter l'état d'avancement du coronavirus dans le monde." Foreground="Black" FontSize="20"  FontFamily="{StaticResource Text}"/>
                         <TextBlock Text="Vous avez la possibilité de représenter les données de deux manières: sous la forme d'un tableau ou d'un graphique." Foreground="Black" FontSize="20"  FontFamily="{StaticResource Text}"/>
                         <TextBlock Text="Deux règles s'appliquent en utilisant l'application: amusez-vous bien et surtout restez chez vous !" Foreground="Black" FontSize="20"  FontFamily="{StaticResource Text}"/>
                     </StackPanel>
@@ -166,8 +166,8 @@
                                 <CheckBox IsChecked="{Binding CbGuer}" FontSize="14" FontFamily="{StaticResource Text}" Background="White" Margin="15 5 15 20" Grid.Column="2" Grid.Row="2">Gueris</CheckBox>
                                 <CheckBox IsChecked="{Binding CbActive}"  FontSize="14" FontFamily="{StaticResource Text}" Background="White" Margin="15 5 15 20" Grid.Column="3" Grid.Row="2">Actifs</CheckBox>
 
-                                <RadioButton Margin="20 0 0 0" FontSize="14" FontFamily="{StaticResource Text}" Grid.Column="0" Grid.Row="3">Country</RadioButton>
-                                <RadioButton Margin="20 0 0 0" FontSize="14" FontFamily="{StaticResource Text}" Grid.Column="0" Grid.Row="4" IsChecked="{Binding Rbregion}">Region</RadioButton>
+                                <RadioButton Margin="20 0 0 0" FontSize="14" FontFamily="{StaticResource Text}" Grid.Column="0" Grid.Row="3">Pays</RadioButton>
+                                <RadioButton Margin="20 0 0 0" FontSize="14" FontFamily="{StaticResource Text}" Grid.Column="0" Grid.Row="4" IsChecked="{Binding Rbregion}">Région</RadioButton>
 
                                 <TextBox FontSize="14" Text="{Binding RechercheSpe}" Grid.Column="1" Grid.Row="4" Margin="30 5 30 5"   />
                                 <TextBlock FontSize="14" FontFamily="{StaticResource Text}" Grid.Column="1" Text="Recherche Specifique:"  Grid.Row="3" Margin="30 5 30 5"   />
@@ -204,40 +204,41 @@
                                 </ScrollViewer>
                             </Grid>
                             <ScrollViewer Margin="40 0 40 0" DockPanel.Dock="Bottom" ScrollViewer.HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                                <syncfusion:SfChart Header="COVID-19 Statistiques" Width="10000" Height="500" Visibility="{Binding VisibilityChart}" >
+                                <syncfusion:SfChart Header="COVID-19 Statistiques" Width="{Binding TailleGraph}" Height="500" Visibility="{Binding VisibilityChart}"
+                                                    HorizontalHeaderAlignment="Left">
                                     <syncfusion:SfChart.PrimaryAxis>
-                                        <syncfusion:CategoryAxis Header="{Binding AxisX}"/>
+                                        <syncfusion:CategoryAxis Header="{Binding AxisXName}"/>
                                     </syncfusion:SfChart.PrimaryAxis>
 
                                     <syncfusion:SfChart.SecondaryAxis>
-                                        <syncfusion:NumericalAxis Header="{Binding AxisY}" FontSize="14"/>
+                                        <syncfusion:NumericalAxis Header="Nombre de personnes" FontSize="14" LabelsPosition="Outside"/>
                                     </syncfusion:SfChart.SecondaryAxis>
 
                                     <syncfusion:SfChart.Legend>
                                         <syncfusion:ChartLegend/>
                                     </syncfusion:SfChart.Legend>
 
-                                    <syncfusion:ColumnSeries IsSeriesVisible="{Binding CbCont}" Label="Confirmés" ItemsSource="{Binding CoronavirusData}" XBindingPath="{Binding AxisX}" YBindingPath="confirmed" ShowTooltip="True" >
+                                    <syncfusion:ColumnSeries IsSeriesVisible="{Binding CbCont}" Label="Confirmés" ItemsSource="{Binding CoronavirusData}" XBindingPath="{Binding AxisX}" YBindingPath="confirmed" ShowTooltip="True">
                                         <syncfusion:ColumnSeries.AdornmentsInfo>
-                                            <syncfusion:ChartAdornmentInfo ShowLabel="True">
+                                            <syncfusion:ChartAdornmentInfo ShowLabel="True" LabelPosition="Outer">
                                             </syncfusion:ChartAdornmentInfo>
                                         </syncfusion:ColumnSeries.AdornmentsInfo>
                                     </syncfusion:ColumnSeries>
                                     <syncfusion:ColumnSeries IsSeriesVisible="{Binding CbMort}" Label="Mort" ItemsSource="{Binding CoronavirusData}" XBindingPath="{Binding AxisX}" YBindingPath="deaths" ShowTooltip="True" Visibility="{Binding VisibilityDeath}">
                                         <syncfusion:ColumnSeries.AdornmentsInfo>
-                                            <syncfusion:ChartAdornmentInfo ShowLabel="True" >
+                                            <syncfusion:ChartAdornmentInfo ShowLabel="True" LabelPosition="Outer">
                                             </syncfusion:ChartAdornmentInfo>
                                         </syncfusion:ColumnSeries.AdornmentsInfo>
                                     </syncfusion:ColumnSeries>
                                     <syncfusion:ColumnSeries IsSeriesVisible="{Binding CbGuer}" Label="Gueris" ItemsSource="{Binding CoronavirusData}" XBindingPath="{Binding AxisX}" YBindingPath="recovered" ShowTooltip="True" Visibility="{Binding VisibilityRecov}">
                                         <syncfusion:ColumnSeries.AdornmentsInfo>
-                                            <syncfusion:ChartAdornmentInfo ShowLabel="True" >
+                                            <syncfusion:ChartAdornmentInfo ShowLabel="True" LabelPosition="Outer">
                                             </syncfusion:ChartAdornmentInfo>
                                         </syncfusion:ColumnSeries.AdornmentsInfo>
                                     </syncfusion:ColumnSeries>
                                     <syncfusion:ColumnSeries IsSeriesVisible="{Binding CbActive}" Label="Actifs" ItemsSource="{Binding CoronavirusData}" XBindingPath="{Binding AxisX}" YBindingPath="active" ShowTooltip="True" Visibility="{Binding VisibilityActive}">
                                         <syncfusion:ColumnSeries.AdornmentsInfo>
-                                            <syncfusion:ChartAdornmentInfo ShowLabel="True" >
+                                            <syncfusion:ChartAdornmentInfo ShowLabel="True" LabelPosition="Outer">
                                             </syncfusion:ChartAdornmentInfo>
                                         </syncfusion:ColumnSeries.AdornmentsInfo>
                                     </syncfusion:ColumnSeries>
