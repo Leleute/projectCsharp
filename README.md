@@ -1,4 +1,4 @@
-# projectCsharp
+# C# Project - WPF Application MVVM pattern
 
 Ce projet est une application WPF en C#, utilisant l'architecture MVVM.<br>
 Nous utilisons les packages NuGet XamlAnimatedGif et Syncfusion.Sfchart.WPF dans cette application.<br>
