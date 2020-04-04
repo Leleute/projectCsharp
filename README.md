@@ -1,7 +1,7 @@
 # projectCsharp
 
-Ce projet est une application wpf en C#, utilisant l'architecture MVVM<br>
-Nous utilisons les packages NuGet XamlAnimatedGif et Syncfusion.Sfchart.WPF<br>
+Ce projet est une application WPF en C#, utilisant l'architecture MVVM.<br>
+Nous utilisons les packages NuGet XamlAnimatedGif et Syncfusion.Sfchart.WPF dans cette application.<br>
 
 ## Pour lancer l'application :
 Clonez ce repository git<br>
