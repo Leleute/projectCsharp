@@ -14,8 +14,8 @@ Pour ce faire nous utilisons l'api https://covid19.mathdro.id/api/confirmed. <br
 Cette API nous permet de recenser par pays ou region :<br>
   - Le nombre de cas confirmés au total<br>
   - Le nombre de personnes mortes<br>
-  - Le nombre de personnes qui ont guéris du virus<br>
-  - Le nombre de personnes ayant le virus<br>
+  - Le nombre de personnes qui ont guéri du virus<br>
+  - Le nombre de personnes ayant contracté le virus<br>
 
 ## Mode d'emploi
 
@@ -29,7 +29,7 @@ Une fois l'application lancée, vous pouvez observer trois differentes parties.<
   *A noter que pour beaucoup de pays, les statistiques par régions ne sont pas disponible. Quand cela est le cas, le nom de la region sera celui du pays, les statisques par regions ne sont présentes que pour les pays les plus grands et touchés (Etats Unis, Chine)*<br>
   Vous avez la possibilité de faire une recherche par nom, vous pouvez utiliser la barre "Recherche Spécifique" pour rentrer une chaine de caractére qui devra etre contenu dans le nom du pays ou de la région de la recherhe.
   Le nombre de données étant très élevées, vous avez la possibilité pour éviter des lags ou des freezes, de limiter le nombre de sortie de l'algorithme.<br>
-  Une fois vos choix fais, vous pouvez utiliser le bouton "Chercher" pour que les resultats s'affichent.<br>
+  Une fois vos choix faits, vous pouvez utiliser le bouton "Chercher" pour que les resultats s'affichent.<br>
 
 ## Membres de l'équipe
 
