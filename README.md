@@ -17,7 +17,7 @@ Cette API nous permet de recenser par pays ou region :<br>
   - Le nombre de personnes qui ont guéri du virus<br>
   - Le nombre de personnes ayant contracté le virus<br>
 
-## Mode d'emploi
+## Mode d'emploi :
 
 Une fois l'application lancée, vous pouvez observer trois differentes parties.<br>
 - Une partie `Information` expliquant le but de l'application.
@@ -31,7 +31,7 @@ Une fois l'application lancée, vous pouvez observer trois differentes parties.<
   Le nombre de données étant très élevées, vous avez la possibilité pour éviter des lags ou des freezes, de limiter le nombre de sortie de l'algorithme.<br>
   Une fois vos choix faits, vous pouvez utiliser le bouton "Chercher" pour que les resultats s'affichent.<br>
 
-## Membres de l'équipe
+## Membres de l'équipe :
 
 François--Bachelier Clément<br>
 Le Guern Bastien<br>
