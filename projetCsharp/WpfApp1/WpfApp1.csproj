@@ -144,7 +144,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\Person.cs" />
     <Compile Include="ViewModel\Commands\Commands.cs" />
     <Compile Include="ViewModel\CoronavirusViewModel.cs" />
     <Page Include="MainWindow.xaml">

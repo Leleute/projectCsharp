@@ -28,20 +28,6 @@ namespace WpfApp1.ViewModel
             }
         }
 
-        private List<Person> _data;
-        public List<Person> Data
-        {
-            get
-            {
-                return _data;
-            }
-            set
-            {
-                _data = value;
-                RaisePropertyChanged("Data");
-            }
-        }
-
         private List<Coronavirus> _coronavirusData;
         public List<Coronavirus> CoronavirusData
         {
