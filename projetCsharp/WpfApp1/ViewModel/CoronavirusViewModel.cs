@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Syncfusion.UI.Xaml.Charts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,8 +14,65 @@ namespace WpfApp1.ViewModel
 {
     class CoronavirusViewModel : INotifyPropertyChanged
     {
-        public ValidationChoix validChoix { get; set; }
-        public List<Person> Data { get; set; }
+        private NumericalAxis _primaryAxis;
+        public NumericalAxis PrimaryAxis
+        {
+            get
+            {
+                return _primaryAxis;
+            }
+            set
+            {
+                _primaryAxis = value;
+                RaisePropertyChanged("PrimaryAxis");
+            }
+        }
+
+        private List<Person> _data;
+        public List<Person> Data
+        {
+            get
+            {
+                return _data;
+            }
+            set
+            {
+                _data = value;
+                RaisePropertyChanged("Data");
+            }
+        }
+
+        private List<Coronavirus> _coronavirusData;
+        public List<Coronavirus> CoronavirusData
+        {
+            get
+            {
+                return _coronavirusData;
+            }
+            set
+            {
+                if (_coronavirusData != value)
+                {
+                    _coronavirusData = value;
+                    RaisePropertyChanged("CoronavirusData");
+                }
+            }
+
+        }
+
+        private Visibility _visibilityChart;
+        public Visibility VisibilityChart
+        {
+            get
+            {
+                return _visibilityChart;
+            }
+            set
+            {
+                _visibilityChart = value;
+                RaisePropertyChanged("VisibilityChart");
+            }
+        }
 
         private Visibility _visibilityGrid;
         public Visibility VisibilityGrid
@@ -199,6 +257,23 @@ namespace WpfApp1.ViewModel
             }
         }
 
+        private bool _rbGraph;
+        public bool RbGraph
+        {
+            get
+            {
+                return _rbGraph;
+            }
+            set
+            {
+                if (RbGraph != value)
+                {
+                    _rbGraph = value;
+                    RaisePropertyChanged("RbGraph");
+                }
+            }
+        }
+
         private string _rechercheSpe;
         public String RechercheSpe
         {
@@ -236,39 +311,49 @@ namespace WpfApp1.ViewModel
 
         public ValidationChoix ValidationChoix { get; set; }
 
-        private List<Coronavirus> _coronavirusData;
-        public List<Coronavirus> CoronavirusData
+        private string _axisX;
+        public String AxisX
         {
             get
             {
-                return _coronavirusData;
+                return _axisX;
             }
             set
             {
-                if (_coronavirusData != value)
-                {
-                    _coronavirusData = value;
-                    RaisePropertyChanged("CoronavirusData");
-                }
+                _axisX = value;
+               RaisePropertyChanged("AxisX");
             }
-
         }
+
+        private string _axisY;
+        public String AxisY
+        {
+            get
+            {
+                return _axisY;
+            }
+            set
+            {
+                _axisY = value;
+                RaisePropertyChanged("AxisY");
+            }
+        }
+
+
 
         public CoronavirusViewModel()
         {
+            VisibilityGrid = Visibility.Collapsed;
+            VisibilityChart = Visibility.Collapsed;
             this.ValidationChoix = new ValidationChoix(this);
             NbMax = "50";
             Rbregion = true;
             VisibilityConf = Visibility.Collapsed;
             CoronavirusData = new List<Coronavirus>();
-
-            Data = new List<Person>()
-            {
-                new Person { Name = "David", Height = 180 },
-                new Person { Name = "Michael", Height = 170 },
-                new Person { Name = "Steve", Height = 160 },
-                new Person { Name = "Joel", Height = 182 }
-            };
+            NumericalAxis test = new NumericalAxis();
+            test.Header = "Test";
+            PrimaryAxis = test;
+            RbGraph = true;
         }
 
         public void VerifTextNotEmpty()
@@ -310,6 +395,19 @@ namespace WpfApp1.ViewModel
 
         public void checkVisibility()
         {
+            NumericalAxis test = new NumericalAxis();
+            PrimaryAxis = test;
+            if (RbGraph == true)
+            {
+                VisibilityGrid = Visibility.Visible;
+                VisibilityChart = Visibility.Collapsed;
+            }
+            if (RbGraph == false)
+            {
+                VisibilityGrid = Visibility.Collapsed;
+                VisibilityChart = Visibility.Visible;
+            }
+
             if (CbCont)
             {
                 VisibilityConf = Visibility.Visible;
@@ -355,13 +453,14 @@ namespace WpfApp1.ViewModel
         }
 
         public void UseButton()
-        {
+        {            
             int i = 0;
             List<Coronavirus> Data = new List<Coronavirus>();
             List<Coronavirus> DataFromApi = apiLoader();
             checkVisibility();
             if (Rbregion == false)
             {
+                AxisX = "countryRegion";
                 for (int j = 0; j < DataFromApi.Count; j++)
                 {
                     for (int k = 0; k < DataFromApi.Count; k++)
@@ -387,6 +486,7 @@ namespace WpfApp1.ViewModel
                     }
                 }
             }
+            else AxisX = "provinceState";
 
             if (RechercheSpe != null)
             {
@@ -412,6 +512,7 @@ namespace WpfApp1.ViewModel
                     if (++i >= int.Parse(NbMax)) break;
 
                 }
+                AxisY = "confirmed";
 
             }
             else if (CbMort == true)
@@ -425,6 +526,7 @@ namespace WpfApp1.ViewModel
                     Data.Add(value);
                     if (++i >= int.Parse(NbMax)) break;
                 }
+                AxisY = "deaths";
             }
             else if (CbGuer == true)
             {
@@ -437,6 +539,7 @@ namespace WpfApp1.ViewModel
                     Data.Add(value);
                     if (++i >= int.Parse(NbMax)) break;
                 }
+                AxisY = "recovered";
             }
             else
             {
@@ -450,11 +553,11 @@ namespace WpfApp1.ViewModel
                     if (++i >= int.Parse(NbMax)) break;
 
                 }
+                AxisY = "active";
             }
             CoronavirusData = Data;
 
         }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -463,13 +566,10 @@ namespace WpfApp1.ViewModel
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null)
             {
+                Console.WriteLine(propertyName);
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
-
-
-
 
     }
 }

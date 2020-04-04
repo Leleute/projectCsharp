@@ -85,11 +85,13 @@
                     </Border.BorderBrush>
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
                         <TextBlock Text="Options d'affichage" Foreground="Black" FontSize="20" FontWeight="Black" Margin="10 10 10 10" FontFamily="{StaticResource Text}"/>
+                        <RadioButton IsChecked="{Binding RbGraph}" />
                         <Button Cursor="Hand" Style="{StaticResource ButtonStyleNoHighlighting}" BorderBrush="Transparent" Margin="0 0 0 10" BorderThickness="0" Width="60" Height="60">
                             <Button.Background>
                                 <ImageBrush ImageSource="/Images/table.png" Stretch="Fill" />
                             </Button.Background>
                         </Button>
+                        <RadioButton/>
                         <Button Cursor="Hand" Style="{StaticResource ButtonStyleNoHighlighting}" BorderBrush="Transparent" BorderThickness="0" Height="60" Width="60">
                             <Button.Background>
                                 <ImageBrush ImageSource="/Images/graph.png" Stretch="Fill" />
@@ -107,35 +109,6 @@
                 </Border>
             </DockPanel>
             <Border Margin="10" Background="Azure" BorderThickness="1,1,1,1" CornerRadius="30,30,30,30" Width="1000">
-                <Grid>
-
-                    <syncfusion:SfChart Header="Chart" Height="300" Width="500">
-                        <!--Initialize the horizontal axis for SfChart-->
-                        <syncfusion:SfChart.PrimaryAxis>
-                            <syncfusion:CategoryAxis Header="Name" FontSize="14"/>
-                        </syncfusion:SfChart.PrimaryAxis>
-
-                        <!--Initialize the vertical axis for SfChart-->
-                        <syncfusion:SfChart.SecondaryAxis>
-                            <syncfusion:NumericalAxis Header="Height(in cm)" FontSize="14"/>
-                        </syncfusion:SfChart.SecondaryAxis>
-
-                        <!--Adding Legend to the SfChart-->
-                        <syncfusion:SfChart.Legend>
-                            <syncfusion:ChartLegend/>
-                        </syncfusion:SfChart.Legend>
-
-                        <!--Initialize the series for SfChart-->
-                        <syncfusion:ColumnSeries Label="Heights" ItemsSource="{Binding Data}" XBindingPath="Name" YBindingPath="Height" ShowTooltip="True" >
-                            <syncfusion:ColumnSeries.AdornmentsInfo>
-                                <syncfusion:ChartAdornmentInfo ShowLabel="True" >
-                                </syncfusion:ChartAdornmentInfo>
-                            </syncfusion:ColumnSeries.AdornmentsInfo>
-                        </syncfusion:ColumnSeries>
-
-                    </syncfusion:SfChart>
-
-                </Grid>
             </Border>
 
 
@@ -193,6 +166,51 @@
                                 <ContentControl 
                                         Visibility="Collapsed"                                  
                                         Content="{StaticResource ProxyElement}"/>
+                                <Grid Grid.ColumnSpan="4" Grid.Row="6">
+
+                                    <syncfusion:SfChart Header="Chart" Height="500" Width="1000" Visibility="{Binding VisibilityChart}" >
+                                        <!--Initialize the horizontal axis for SfChart-->
+                                        <syncfusion:SfChart.PrimaryAxis>
+                                            <syncfusion:CategoryAxis Header="{Binding AxisX}"/>
+                                        </syncfusion:SfChart.PrimaryAxis>
+
+                                        <!--Initialize the vertical axis for SfChart-->
+                                        <syncfusion:SfChart.SecondaryAxis>
+                                            <syncfusion:NumericalAxis Header="{Binding AxisY}" FontSize="14"/>
+                                        </syncfusion:SfChart.SecondaryAxis>
+
+                                        <!--Adding Legend to the SfChart-->
+                                        <syncfusion:SfChart.Legend>
+                                            <syncfusion:ChartLegend/>
+                                        </syncfusion:SfChart.Legend>
+
+                                        <!--Initialize the series for SfChart-->
+                                        <syncfusion:ColumnSeries IsSeriesVisible="{Binding CbCont}" Label="Confirmés" ItemsSource="{Binding CoronavirusData}" XBindingPath="{Binding AxisX}" YBindingPath="confirmed" ShowTooltip="True" >
+                                            <syncfusion:ColumnSeries.AdornmentsInfo>
+                                                <syncfusion:ChartAdornmentInfo ShowLabel="True">
+                                                </syncfusion:ChartAdornmentInfo>
+                                            </syncfusion:ColumnSeries.AdornmentsInfo>
+                                        </syncfusion:ColumnSeries>
+                                        <syncfusion:ColumnSeries IsSeriesVisible="{Binding CbMort}" Label="Mort" ItemsSource="{Binding CoronavirusData}" XBindingPath="{Binding AxisX}" YBindingPath="deaths" ShowTooltip="True" Visibility="{Binding VisibilityDeath}">
+                                            <syncfusion:ColumnSeries.AdornmentsInfo>
+                                                <syncfusion:ChartAdornmentInfo ShowLabel="True" >
+                                                </syncfusion:ChartAdornmentInfo>
+                                            </syncfusion:ColumnSeries.AdornmentsInfo>
+                                        </syncfusion:ColumnSeries>
+                                        <syncfusion:ColumnSeries IsSeriesVisible="{Binding CbGuer}" Label="Gueris" ItemsSource="{Binding CoronavirusData}" XBindingPath="{Binding AxisX}" YBindingPath="recovered" ShowTooltip="True" Visibility="{Binding VisibilityRecov}">
+                                            <syncfusion:ColumnSeries.AdornmentsInfo>
+                                                <syncfusion:ChartAdornmentInfo ShowLabel="True" >
+                                                </syncfusion:ChartAdornmentInfo>
+                                            </syncfusion:ColumnSeries.AdornmentsInfo>
+                                        </syncfusion:ColumnSeries>
+                                        <syncfusion:ColumnSeries IsSeriesVisible="{Binding CbActive}" Label="Actifs" ItemsSource="{Binding CoronavirusData}" XBindingPath="{Binding AxisX}" YBindingPath="active" ShowTooltip="True" Visibility="{Binding VisibilityActive}">
+                                            <syncfusion:ColumnSeries.AdornmentsInfo>
+                                                <syncfusion:ChartAdornmentInfo ShowLabel="True" >
+                                                </syncfusion:ChartAdornmentInfo>
+                                            </syncfusion:ColumnSeries.AdornmentsInfo>
+                                        </syncfusion:ColumnSeries>
+                                    </syncfusion:SfChart>
+                                </Grid>
                                 <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto"  Grid.ColumnSpan="4" Grid.Row="6" >
                                     <DataGrid
                                         Margin="10"
@@ -215,7 +233,6 @@
                                             <DataGridTextColumn HeaderTemplate="{StaticResource RecoveredTemplate}" Visibility="{Binding DataContext.VisibilityRecov, Source={StaticResource ProxyElement}}" Width="*" Binding="{Binding Path=recovered}" />
                                             <DataGridTextColumn HeaderTemplate="{StaticResource ActiveTemplate}" Visibility="{Binding DataContext.VisibilityActive, Source={StaticResource ProxyElement}}" Width="*" Binding="{Binding Path=active}" />
                                         </DataGrid.Columns>
-
                                     </DataGrid>
                                 </ScrollViewer>
                             </Grid>
@@ -223,96 +240,9 @@
                     </Border>
                 </DockPanel>
             </DockPanel>
-
-
         </StackPanel>
-
     </Border>
-
-    <!--<Border Padding="20">
-        <StackPanel>
-            <StackPanel.Resources>
-                <FrameworkElement 
-                    x:Key="ProxyElement"
-                    DataContext="{Binding}"/>
-                <m:Coronavirus x:Key="coronavirus"/>
-            </StackPanel.Resources>
-            <lvc:CartesianChart Series="{Binding testGraph}" />
-            <TextBlock Text= "Coronavirus API"
-                        FontWeight="Bold"
-                        TextAlignment="Center"
-                        Margin="30 0 0 0"
-                        Padding="5"
-                        Grid.Row="0" 
-                        Grid.ColumnSpan="4"
-                        FontSize="40"
-                     />
-            <Border BorderBrush="Black" BorderThickness="2">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock  
-                        Text= "Paramètres :"                               
-                        Margin="30 0 0 0"      
-                        Padding="5"       
-                        Grid.Row="1"              
-                        Foreground="Black"         
-                        FontSize="20" />
-
-                    <CheckBox IsChecked="{Binding CbCont}" Background="White" Margin="15 5 15 20" Grid.Column="0"  Grid.Row="2">Contaminé</CheckBox>
-                    <CheckBox IsChecked="{Binding CbMort}" Background="White" Margin="15 5 15 20" Grid.Column="1" Grid.Row="2">Morts</CheckBox>
-                    <CheckBox IsChecked="{Binding CbGuer}" Background="White" Margin="15 5 15 20" Grid.Column="2" Grid.Row="2">Gueris</CheckBox>
-                    <CheckBox IsChecked="{Binding CbActive}" Background="White" Margin="15 5 15 20" Grid.Column="3" Grid.Row="2">Actifs</CheckBox>
-
-                    <RadioButton Grid.Column="0" Grid.Row="3" Margin="5 0 0 0">Country</RadioButton>
-                    <RadioButton Grid.Column="0" Grid.Row="4" Margin="5 0 0 0" IsChecked="{Binding Rbregion}">Region</RadioButton>
-
-                    <TextBox Text="{Binding RechercheSpe}" Grid.Column="1" Grid.Row="4" Margin="30 5 30 5"   />
-                    <TextBlock Grid.Column="1" Text="Recherche Specifique"  Grid.Row="3" Margin="30 5 30 5"   />
-                    <TextBox Text="{Binding NbMax}" Grid.Column="2" Grid.Row="4" Margin="30 5 30 5" PreviewTextInput="NumberValidation"/>
-                    <TextBlock Grid.Column="2" Text="Nombre Maximum"  Grid.Row="3" Margin="30 5 30 5"  />
-                    
-                    <Button Margin="15 0 15 30"  Grid.Column="3" Content="Chercher" Grid.Row="5" Command="{Binding ValidationChoix}"/>
-                    
-                    <ContentControl 
-                        Visibility="Collapsed"                                  
-                        Content="{StaticResource ProxyElement}"/>
-
-                    <DataGrid
-                        Visibility="{Binding VisibilityGrid}"
-                        ScrollViewer.VerticalScrollBarVisibility="Visible"
-                        ScrollViewer.CanContentScroll="True"
-                        ItemsSource="{Binding CoronavirusData}"
-                        Grid.Row="6"
-                        Margin="10 10 10 0"
-                        AutoGenerateColumns="False"
-                        Grid.ColumnSpan="4"
-                        IsReadOnly="True">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Visibility="{Binding DataContext.VisibilityCountry, Source={StaticResource ProxyElement}}" Width="*" Header="Country" Binding="{Binding Path=countryRegion}"/>
-                            <DataGridTextColumn Visibility="{Binding DataContext.VisibilityRegion, Source={StaticResource ProxyElement}}" Width="*" Header="Region / State" Binding="{Binding Path=provinceState}" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.VisibilityConf, Source={StaticResource ProxyElement}}" Width="*" Header="confirmed" Binding="{Binding Path=confirmed}" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.VisibilityDeath, Source={StaticResource ProxyElement}}" Width="*" Header="death" Binding="{Binding Path=deaths}" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.VisibilityRecov, Source={StaticResource ProxyElement}}" Width="*" Header="recovered" Binding="{Binding Path=recovered}" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.VisibilityActive, Source={StaticResource ProxyElement}}" Width="*" Header="active" Binding="{Binding Path=active}" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
-            </Border>
-        </StackPanel>
-    </Border>-->
 </Window>
+    
+    
+    
