@@ -346,7 +346,7 @@ namespace WpfApp1.ViewModel
             VisibilityGrid = Visibility.Collapsed;
             VisibilityChart = Visibility.Collapsed;
             this.ValidationChoix = new ValidationChoix(this);
-            NbMax = "50";
+            NbMax = "10";
             Rbregion = true;
             VisibilityConf = Visibility.Collapsed;
             CoronavirusData = new List<Coronavirus>();
@@ -455,14 +455,14 @@ namespace WpfApp1.ViewModel
             int i = 0;
             List<Coronavirus> Data = new List<Coronavirus>();
             List<Coronavirus> DataFromApi = apiLoader();
-            checkVisibility();
-            TailleGraph = 200 * int.Parse(NbMax);
-            if (Rbregion == false)
+            checkVisibility();           
+            if (Rbregion == true)
             {
-                AxisX = "countryRegion";
+                
                 AxisXName = "Pays";
                 for (int j = 0; j < DataFromApi.Count; j++)
                 {
+                    AxisX = "provinceState";
                     for (int k = 0; k < DataFromApi.Count; k++)
                     {
                         if (DataFromApi[j].countryRegion == DataFromApi[k].countryRegion)
@@ -488,8 +488,8 @@ namespace WpfApp1.ViewModel
             }
             else
             {
-                AxisXName = "Etat / Region";
-                AxisX = "provinceState";
+                AxisX = "countryRegion";
+                AxisXName = "Etat / Province";
             }
 
             if (RechercheSpe != null)
@@ -560,6 +560,7 @@ namespace WpfApp1.ViewModel
                 AxisY = "active";
             }
             CoronavirusData = Data;
+            TailleGraph = 200 * CoronavirusData.Count;
 
         }
 
@@ -570,7 +571,6 @@ namespace WpfApp1.ViewModel
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null)
             {
-                Console.WriteLine(propertyName);
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
