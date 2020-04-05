@@ -33,7 +33,6 @@ Une fois l'application lancée, vous pouvez observer trois differentes parties.<
 
 ## Membres de l'équipe :
 
-FRANCOIS--BACHELIER Clément<br>
 LE GUERN Bastien<br>
 LELEU Matthieu<br>
 
