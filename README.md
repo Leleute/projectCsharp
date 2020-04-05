@@ -9,9 +9,9 @@ Allez dans le dossier projectCsharp<br>
 Lancez la solution projetCsharp via Visual Studio<br>
 
 ## Concept du projet :
-Nous avons decidé de faire une application permettant de suivre l'evolution du Coronavirus dans le monde.<br>
+Nous avons decidé de faire une application permettant de suivre l'évolution du Coronavirus dans le monde.<br>
 Pour ce faire nous utilisons l'api https://covid19.mathdro.id/api/confirmed. <br>
-Cette API nous permet de recenser par pays ou region :<br>
+Cette API nous permet de recenser par pays ou région :<br>
   - Le nombre de cas confirmés au total<br>
   - Le nombre de personnes mortes<br>
   - Le nombre de personnes qui ont guéri du virus<br>
@@ -25,10 +25,10 @@ Une fois l'application lancée, vous pouvez observer trois differentes parties.<
 - Une partie `Paramètre d'affichage`vous permettant de choisir les informations que vous voulez voir,<br> 
   Selon quels critères les trier et le nombre d'information que vous voulez afficher.<br>
   Vous pouvez choisir d'afficher une ou plusieurs des informations entre les cas confirmés, les personnes mortes, les personnes qui ont guéri et les personnes ayants le virus<br>
-  Vous pouvez choisir de trier par region ou par pays. <br>
+  Vous pouvez choisir de trier par région ou par pays. <br>
   *A noter que pour beaucoup de pays, les statistiques par régions ne sont pas disponible. Quand cela est le cas, le nom de la region sera celui du pays, les statisques par regions ne sont présentes que pour les pays les plus grands et touchés (Etats Unis, Chine)*<br>
   Vous avez la possibilité de faire une recherche par nom, vous pouvez utiliser la barre "Recherche Spécifique" pour rentrer une chaine de caractére qui devra etre contenu dans le nom du pays ou de la région de la recherhe.
-  Le nombre de données étant très élevées, vous avez la possibilité pour éviter des lags ou des freezes, de limiter le nombre de sortie de l'algorithme.<br>
+  Le nombre de données étant très élevé, vous avez la possibilité pour éviter des lags ou des freezes, de limiter le nombre de sortie de l'algorithme.<br>
   Une fois vos choix faits, vous pouvez utiliser le bouton "Chercher" pour que les resultats s'affichent.<br>
 
 ## Membres de l'équipe :
