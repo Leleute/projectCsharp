@@ -34,6 +34,7 @@ Une fois l'application lancée, vous pouvez observer trois differentes parties.<
 ## Membres de l'équipe :
 
 LE GUERN Bastien<br>
+FRANCOIS-BACHELIER Clément<br>
 LELEU Matthieu<br>
 
 ### Merci beaucoup
