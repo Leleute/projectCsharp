@@ -13,6 +13,7 @@ namespace WpfApp1
             InitializeComponent();
             base.DataContext = viewModel;
         }
+
         private void NumberValidation(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
